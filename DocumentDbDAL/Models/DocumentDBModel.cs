@@ -19,12 +19,13 @@ namespace DocumentDbDAL.Models
         public string category { get; set; } = "";
         public string JsonDoc { get; set; } = "";
         public string Owner { get; set; } = "";
+        public string KeyValue { get; set; } = "";
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime DateLastChanged { get; set; } = DateTime.UtcNow;
 
         public string GetInsertValues()
         {
-            return $"'{id}', '{category}', '{JsonDoc}', '{Owner}', '{DateCreated.ToString("yyyy-MM-dd HH:mm:ss.fff")}',  '{DateLastChanged.ToString("yyyy-MM-dd HH:mm:ss.fff")}' ";
+            return $"'{id}', '{category}', '{JsonDoc}', '{Owner}', '{KeyValue}' ,  '{DateCreated.ToString("yyyy-MM-dd HH:mm:ss.fff")}',  '{DateLastChanged.ToString("yyyy-MM-dd HH:mm:ss.fff")}' ";
             
         }
 

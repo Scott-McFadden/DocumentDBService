@@ -1,0 +1,121 @@
+{
+   
+  "name": "Connections",
+  "description": "Connection Lookup Table",
+  "version": "1.0",
+  "connection": "Connections",
+  "tags": [
+    "Connections",
+    "Admin"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "dbName": "id",
+      "description": "identification Key",
+      "dataType": "guid",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "EngineType",
+      "dbName": "engineType",
+      "description": "data management engine to use",
+      "dataType": "string",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "dbName",
+      "dbName": "dbName",
+      "description": "Database Name",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "ConnectionString",
+      "dbName": "connectionString",
+      "description": "Connection String used to connect with the data source",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "collectionName",
+      "dbName": "collectionName",
+      "description": "Collection / Table name",
+      "dataType": "string",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "uniqueKeys",
+      "dbName": "uniqueKeys",
+      "description": "comma separated list of keys that need to be unique before a new item can be added",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "tags",
+      "dbName": "tags",
+      "description": "tags or categories the can be used to identify the defintion.  Comma separated strings",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "UserId",
+      "dbName": "UserId",
+      "description": "user id credential - optional ",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "Password",
+      "dbName": "Password",
+      "description": "password for credential - optional",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "AuthModel",
+      "dbName": "AuthModel",
+      "description": "the authentication model we are using to pass credentials to the data source.",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    }
+
+  ],
+  "Modifications": [
+    {
+      "dateModified": "2022-02-22T14:59:18.0610963-06:00",
+      "who": "scott",
+      "jiraTicket": "",
+      "description": "initial Test"
+    }
+  ],
+  "getQuery": "select |fields| from [dbo].[Connections]  ",
+  "getOneQuery": "select |fields| from [dbo].[Connections] where id = @id",
+  "deleteQuery": "delete from [dbo].[Connections] where id = @id",
+  "updateQuery": "update [dbo].[Connections] set |updateFields| where id=@id",
+  "addQuery": "insert into [dbo].[Connections] ( |fields| ) values ( |values| )",
+  "roles": [
+    "admin", "internal"
+  ]
+}
+	

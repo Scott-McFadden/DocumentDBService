@@ -3,6 +3,7 @@ using DocumentDbDAL.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace UnitTests
 {
@@ -15,12 +16,10 @@ namespace UnitTests
         [TestMethod]
         public void Get1RecordTest()
         {
-
-
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
-            var r = db.Get(new Guid("12B7F49B-5A4D-48DB-9452-96CF0EC66C6B"));
+            var r = db.Get(new Guid("A7EACE2C-E0F4-44B5-9C46-043664CE149A"));
 
-            Assert.IsTrue(r.id == new Guid("12B7F49B-5A4D-48DB-9452-96CF0EC66C6B"));
+            Assert.IsTrue(r.id == new Guid("A7EACE2C-E0F4-44B5-9C46-043664CE149A"));
         }
 
         [TestMethod]
@@ -31,16 +30,16 @@ namespace UnitTests
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
             var r = db.Get( );
 
-            Assert.IsTrue(r.Count == 2);
+            Assert.IsTrue(r.Count == 1);
         }
 
         [TestMethod]
         public void GetManyRecordWithCat()
         {
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
-            var r = db.Get("where category = 'General'");
+            var r = db.Get("where category = 'QueryDef'");
 
-            Assert.IsTrue(r.Count == 2 );
+            Assert.IsTrue(r.Count == 1 );
         }
 
         [TestMethod]
@@ -107,5 +106,37 @@ namespace UnitTests
 
             Assert.IsTrue(r == 1, "one deleted");
         }
+
+        [TestMethod]
+        public void TestDuplicateAdd()
+        {
+            //string def = File.ReadAllText(@"C:\Users\impro\source\repos\DocumentDBService\DocumentDbDAL\BaseDefintions\DomainLookUp.def.json");
+            string def = File.ReadAllText(@"C:\Users\impro\source\repos\DocumentDBService\DocumentDbDAL\BaseDefintions\Connection.def.json");
+            QueryDefModel model = QueryDefModel.deserialize(def);
+            model.id = Guid.NewGuid();
+            DocumentDBModel doc = new();
+            doc.category = "QueryDef";
+            doc.JsonDoc = model.serialize();
+            doc.id = model.id;
+            doc.KeyValue = model.name;
+            doc.Owner = "scott";
+            int r=0;
+
+            try
+            {
+                ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
+                   r = db.Add(doc);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                Assert.IsTrue(ex.Message.Contains("duplicate"));
+            }
+            
+            //Assert.IsTrue(r == 0);
+
+        }
+
+
     }
 }

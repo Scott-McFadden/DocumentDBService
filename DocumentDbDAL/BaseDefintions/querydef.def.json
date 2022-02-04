@@ -1,0 +1,150 @@
+{
+  "id": "xxxx",
+  "name": "QueryDef",
+  "description": "Specific querydef Operations",
+  "version": "1.0",
+  "connection": "querydefs",
+  "tags": [
+    "connections",
+    "Admin"
+  ],
+  "fields": [
+    {
+      "name": "Name",
+      "dbName": "name",
+      "description": "",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": ""
+    },
+    {
+      "name": "Description",
+      "dbName": "description",
+      "description": "Describes the connection",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "Version",
+      "dbName": "version",
+      "description": "identifies the document version",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "versionText"
+    },
+    {
+      "name": "Connection",
+      "dbName": "connection",
+      "description": "Connection this def should use",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "Text"
+    },
+    {
+      "name": "Fields",
+      "dbName": "fields",
+      "description": "Fields that belong to this object",
+      "dataType": "qdefField[]",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "FieldList",
+      "Children": [
+        {
+          "name": "Name",
+          "dbName": "name",
+          "description": "Name of Field",
+          "dataType": "string",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "Text"
+        },
+        {
+          "name": "DbName",
+          "dbName": "dbName",
+          "description": "Database/Collection Name",
+          "dataType": "string",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "Text"
+        },
+        {
+          "name": "Description",
+          "dbName": "description",
+          "description": "The description for this field",
+          "dataType": "string",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "Text"
+        },
+        {
+          "name": "DataType",
+          "dbName": "dataType",
+          "description": "Data Type of the field",
+          "dataType": "string",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "Text"
+        },
+
+        {
+          "name": "Validation",
+          "dbName": "validation",
+          "description": "validation strategy",
+          "dataType": "object",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "Text"
+        },
+        {
+          "name": "Validation Type",
+          "dbName": "validationType",
+          "description": "Validation Action Type",
+          "dataType": "ValidationEnum",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "ValidationChoice"
+        },
+        {
+          "name": "InputType",
+          "dbName": "inputType",
+          "description": "Input Type to use to service this",
+          "dataType": "string",
+          "validation": "none",
+          "validationType": 0,
+          "inputType": "Text"
+        }
+
+      ]
+    },
+    {
+      "name": "Tags",
+      "dbName": "tags",
+      "description": "Identifies the key categoriess",
+      "dataType": "Array",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "textArray"
+    }
+  ],
+  "Modifications": [
+    {
+      "dateModified": "2022-01-18T14:59:18.0610963-06:00",
+      "who": "scott",
+      "jiraTicket": "",
+      "description": "initial Test"
+    }
+  ],
+  "getQuery": "{ { \"name\", \"${docname}\" }}",
+  "deleteQuery": "",
+  "getOneQuery": "", 
+  "updateQuery": "",
+  "addQuery": "",
+  "roles": [
+    "anyone"
+  ]
+}

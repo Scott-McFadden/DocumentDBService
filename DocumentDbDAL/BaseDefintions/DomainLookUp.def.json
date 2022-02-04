@@ -1,0 +1,66 @@
+{
+  "id": "a7eace2c-e0f4-44b5-9c46-043664ce149a",
+  "name": "DomainLookUp",
+  "description": "Operations against the Domain Lookup Table",
+  "version": "1.0",
+  "connection": "LookUpTable",
+  "tags": [
+    "LookUp",
+    "General"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "dbName": "id",
+      "description": "identification Key",
+      "dataType": "guid",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "Name",
+      "dbName": "name",
+      "description": "Domain Key",
+      "dataType": "string",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "Category",
+      "dbName": "category",
+      "description": "name of the lookup category",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "Value",
+      "dbName": "Value",
+      "description": "contains the lookup key value",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    }
+  ],
+  "Modifications": [
+    {
+      "dateModified": "2022-01-18T14:59:18.0610963-06:00",
+      "who": "scott",
+      "jiraTicket": "",
+      "description": "initial Test"
+    }
+  ],
+  "getQuery": "select |fields| from [dbo].[LookUpTable]  ",
+  "getOneQuery": "select |fields| from [dbo].[LookUpTable] where id = @id",
+  "deleteQuery": "delete from [dbo].[LookUpTable] where id = @id",
+  "updateQuery": "update [dbo].[LookUpTable] set |updateFields| where id=@id",
+  "addQuery": "insert into [dbo].[LookUpTable] ( |fields| ) values ( |values| )",
+  "roles": [
+    "anyone"
+  ]
+}
+	
