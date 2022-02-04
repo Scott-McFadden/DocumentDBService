@@ -20,7 +20,7 @@
     },
     {
       "name": "Name",
-      "dbName": "name",
+      "dbName": "Name",
       "description": "Domain Key",
       "dataType": "string",
       "validation": "",
@@ -29,7 +29,7 @@
     },
     {
       "name": "Category",
-      "dbName": "category",
+      "dbName": "Category",
       "description": "name of the lookup category",
       "dataType": "string",
       "validation": "none",

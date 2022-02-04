@@ -106,6 +106,8 @@ namespace UnitTests
         [TestMethod]
         public void TestAddUpdateDelete()
         {
+            Console.WriteLine(DateTime.Now);
+            
             DomainLookUpModel model = new();
             model.Category = "test";
             model.Name = "unittest";
@@ -114,7 +116,22 @@ namespace UnitTests
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
 
-            var result = EQD.Insert(new JObject(model.serialize()));
+            var result = EQD.Insert(JObject.Parse(model.serialize()));
+
+            Assert.IsTrue(result == 1, "add result");
+
+            model.Value = "Updated";
+            var r3 = EQD.Update(JObject.Parse(model.serialize()));
+
+            Assert.IsTrue(r3 == 1, "update result");
+
+            var r2 = EQD.Delete(model.id.ToString());
+            Assert.IsTrue(r2 == 1, "delete result");
+
+            var r4 = EQD.GetOne(model.id.ToString());
+             
+            Console.WriteLine(r4.ToString());
+            Assert.IsTrue(r4.Count == 0, "count not find record") ;
 
         }
 

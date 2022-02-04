@@ -108,15 +108,7 @@ namespace DocumentDbDAL.Models
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// create a json string for the object.
-        /// </summary>
-        /// <param name="model">ConnectionModel</param>
-        /// <returns>json string</returns>
-        public  string  serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
+         
 
 
         /// <summary>

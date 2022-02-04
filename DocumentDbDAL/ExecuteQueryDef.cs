@@ -14,9 +14,6 @@ namespace DocumentDbDAL
         
         private SqlConnection conn; 
 
-       
-
-
         
         public override JObject GetOne(string id)
         {
@@ -127,9 +124,9 @@ namespace DocumentDbDAL
                 throw new Exception("The model does not contain an id property.");
 
             int ret = 0;
-            var query = queryDefModel.updateQuery
+            var query = queryDefModel.addQuery
                 .Replace("|fields|", SelectedFieldsList())
-                .Replace("|values|oh", InsertValuesList (model));
+                .Replace("|values|", InsertValuesList (model));
 
             using (conn = GetConnection())
             {
@@ -171,12 +168,17 @@ namespace DocumentDbDAL
             string comma = "";
             foreach (var field in queryDefModel.fields)
             {
-                if (model.ContainsKey(field.dbName))
+                if(!field.dbName.IsEmpty())
                 {
                     s.Append(comma);
-                    s.Append(" '" + model[field.dbName].Value<string>() + "'");
+                    if (model.ContainsKey(field.dbName))
+                    {
+                        s.Append(" '" + model[field.dbName].Value<string>() + "'");
+                    }
+                    else
+                        s.Append(" ''");
                     comma = ",";
-                }
+                } 
             }
 
             return s.ToString();
