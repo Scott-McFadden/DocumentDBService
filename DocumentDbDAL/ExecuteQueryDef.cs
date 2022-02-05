@@ -55,7 +55,7 @@ namespace DocumentDbDAL
 
             using (conn = GetConnection())
             {
-                var query = queryDefModel.getQuery.Replace("|fields|", SelectedFieldsList());
+                var query = queryDefModel.getQuery.Replace("|fields|", SelectedFieldsList()).Replace("|table|", connectionModel.collectionName );
                 if(!criteria.IsEmpty())
                     query = query + " where " + criteria;
 

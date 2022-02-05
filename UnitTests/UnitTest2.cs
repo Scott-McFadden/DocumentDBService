@@ -30,7 +30,7 @@ namespace UnitTests
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
             var r = db.Get( );
 
-            Assert.IsTrue(r.Count == 1);
+            Assert.IsTrue(r.Count > 0);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace UnitTests
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
             var r = db.Get("where category = 'QueryDef'");
 
-            Assert.IsTrue(r.Count == 1 );
+            Assert.IsTrue(r.Count > 0 );
         }
 
         [TestMethod]

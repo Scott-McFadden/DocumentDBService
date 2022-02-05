@@ -87,7 +87,7 @@ namespace UnitTests
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
             JArray result = EQD.Get(" Category='QueryDef' and Name='DataType' ");
-
+            Console.WriteLine(result.ToString());
             Assert.IsTrue(result.Count  == 12);
 
         }
@@ -100,7 +100,7 @@ namespace UnitTests
             EQD.QueryDefName = "DomainLookUp";
             JArray result = EQD.Get();
 
-            Assert.IsTrue(result.Count == 12);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
