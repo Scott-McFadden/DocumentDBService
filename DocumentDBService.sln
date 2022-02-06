@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDBService", "DocumentDBService\DocumentDBService.csproj", "{BE825531-FA9B-4FAD-8102-A49CDDB468C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentDBService", "DocumentDBService\DocumentDBService.csproj", "{BE825531-FA9B-4FAD-8102-A49CDDB468C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDbDAL", "DocumentDbDAL\DocumentDbDAL.csproj", "{7D110DB1-3A13-408F-B6BB-351490550682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentDbDAL", "DocumentDbDAL\DocumentDbDAL.csproj", "{7D110DB1-3A13-408F-B6BB-351490550682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{5F07350D-759B-4278-8B75-1B0C47AA390D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{5F07350D-759B-4278-8B75-1B0C47AA390D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

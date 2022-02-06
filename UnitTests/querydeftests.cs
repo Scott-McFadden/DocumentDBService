@@ -28,7 +28,6 @@ namespace UnitTests
             ConnectionService.Populate(connectiondb);
             QueryDefService.Populate(docDb);
 
-
         }
 
         [TestMethod]
