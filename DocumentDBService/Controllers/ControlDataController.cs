@@ -26,6 +26,7 @@ namespace DocumentDBService.Controllers
         [HttpGet]
         public ActionResult GetQueryDef()
         {
+            Log.Information("GetQueryDef called");
             List<string> QueryDefNames = new List<string>();
             try
             {
@@ -42,6 +43,7 @@ namespace DocumentDBService.Controllers
         [Route("ControlData/{queryDefName}/GetFields")]
         public ActionResult GetFields(string queryDefName)
         {
+            Log.Information($"GetFields = {queryDefName}");
             QueryDefModel QueryDef;
             try
             {
@@ -58,6 +60,7 @@ namespace DocumentDBService.Controllers
         [Route("ControlData/GetLookUpValues/{name}")]
         public ActionResult GetLookUpValues(string name)
         {
+            Log.Information($"GetLookUpValues = {name}");
             List<DomainLookUpModel> lookup;
             try
             {
@@ -75,6 +78,7 @@ namespace DocumentDBService.Controllers
         [Route("ControlData/GetLookUpCategories")]
         public ActionResult GetLookUpCategories()
         {
+            Log.Information($"GetLookUpCategories = ");
             List<DomainLookUpModel> lookup;
             try
             {
@@ -92,6 +96,7 @@ namespace DocumentDBService.Controllers
         [Route("ControlData/GetByCategory/{category}")]
         public ActionResult GetByCategory(string category)
         {
+            Log.Information($"GetLookUpValues = {category}");
             List<DomainLookUpModel> lookup;
             try
             {

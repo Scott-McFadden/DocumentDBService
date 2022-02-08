@@ -23,6 +23,8 @@ namespace DocumentDbDAL
             set
             {
                 queryDefName = value;
+                if (QueryDefService.DoesNotHave(queryDefName))
+                    throw new Exception($"query ({queryDefName}) was not found in defintions");
                 queryDefModel = QueryDefService.Get(queryDefName);
                 connectionModel = ConnectionService.Get(queryDefModel.connection);
             }

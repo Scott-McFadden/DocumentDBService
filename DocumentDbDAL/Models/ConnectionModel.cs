@@ -1,6 +1,4 @@
-﻿
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 
 namespace DocumentDbDAL.Models
@@ -10,7 +8,6 @@ namespace DocumentDbDAL.Models
     /// </summary>
     public class ConnectionModel : IModel
     {
-
         public Guid id { get; set; } = Guid.NewGuid();
         /// <summary>
         /// the name of the connection
@@ -49,11 +46,6 @@ namespace DocumentDbDAL.Models
         public string  uniqueKeys { get; set; } = "";
 
         /// <summary>
-        /// schema for the object - used if strongly typed json objects are to be used. 
-        /// </summary>
-        //public string schema { get; set; } = "";
-
-        /// <summary>
         /// comma separated list of tags that help catagorize this in the list.
         /// </summary>
         public string  tags { get; set; } =   ""  ;
@@ -89,6 +81,7 @@ namespace DocumentDbDAL.Models
         {
             return JsonConvert.DeserializeObject<ConnectionModel>(data);
         }
+
         /// <summary>
         /// create a json string for the object.
         /// </summary>
@@ -98,6 +91,7 @@ namespace DocumentDbDAL.Models
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
+
         public string GetInsertValues()
         {
             throw new NotImplementedException();
@@ -107,9 +101,6 @@ namespace DocumentDbDAL.Models
         {
             throw new NotImplementedException();
         }
-
-         
-
 
         /// <summary>
         /// verify that the model is usable

@@ -35,6 +35,18 @@ namespace DocumentDbDAL
                 cache.Add(q.name, q);
             }
         }
+        /// <summary>
+        /// check to make sure that the given name is not in the cache 
+        /// </summary>
+        /// <param name="name">name of querydef to check for</param>
+        /// <returns></returns>
+        public static bool DoesNotHave(string name)
+        {
+            if (!cache.ContainsKey(name))
+                return true;
+            else
+                return false;
+        }
 
         /// <summary>
         /// add a model to the cache

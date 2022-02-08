@@ -1,11 +1,8 @@
-﻿using DocumentDbDAL.Models;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentDbDAL
 {
@@ -132,7 +129,18 @@ namespace DocumentDbDAL
             {
                 var cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", model["id"].Value<string>());
-                ret = cmd.ExecuteNonQuery();
+                try
+                {
+                    ret = cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("ExecuteQueryDef.Insert", ex);
+                    if (ex.Message.Contains("Cannot insert duplicate key"))
+                        throw new Exception("Duplicate keys In Collections", ex);
+                    else
+                        throw;
+                }
 
             }
             return ret;
@@ -171,9 +179,14 @@ namespace DocumentDbDAL
                 if(!field.dbName.IsEmpty())
                 {
                     s.Append(comma);
-                    if (model.ContainsKey(field.dbName))
+                    if (model.ContainsKey(field.dbName)  )
                     {
                         s.Append(" '" + model[field.dbName].Value<string>() + "'");
+                    }
+                    else
+                    if (model.ContainsKey(field.dbName.ToLower()))
+                    {
+                        s.Append(" '" + model[field.dbName.ToLower()].Value<string>() + "'");
                     }
                     else
                         s.Append(" ''");
