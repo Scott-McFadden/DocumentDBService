@@ -12,7 +12,7 @@ namespace UnitTests
     public class QueryDefTests
     {
 
-        static string   ConnectionString = "Data Source=localhost; Initial Catalog=DocumentDb; User Id=dev; Password=dev";
+        static string   ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
         static ADOBase<DocumentDBModel> docDb;
         static ADOBase<DomainLookUpModel> lookupdb;
         static ADOBase<ConnectionModel> connectiondb;
@@ -66,7 +66,7 @@ namespace UnitTests
         {
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
-            JObject result = EQD.GetOne("D0B27B57-1012-4672-86DD-06E381A06879");
+            JObject result = EQD.GetOne("EB133A3C-B70A-4CA8-BF07-F91C10F740FB");
 
             Assert.IsTrue(result["Value"].Value<string>() == "test");
         }

@@ -98,7 +98,8 @@ namespace DocumentDbDAL
 
                     for (var a = 0; a < rdr.VisibleFieldCount; a++)
                     {
-                        Properties[fields[a]].SetValue(ret, rdr[fields[a]]);
+                        if(rdr[fields[a]].GetType()  != typeof(System.DBNull))
+                            Properties[fields[a]].SetValue(ret, rdr[fields[a]]);
                     }
 
                     ret2.Add(ret);

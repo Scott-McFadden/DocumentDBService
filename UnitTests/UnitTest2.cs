@@ -11,15 +11,15 @@ namespace UnitTests
     public class DocumentDBDALTests
     {
 
-        string   ConnectionString = "Data Source=localhost; Initial Catalog=DocumentDb; User Id=dev; Password=dev";
+        string   ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
 
         [TestMethod]
         public void Get1RecordTest()
         {
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
-            var r = db.Get(new Guid("A7EACE2C-E0F4-44B5-9C46-043664CE149A"));
+            var r = db.Get(new Guid("9DEE568C-02A9-46F0-9296-D9F898CC1020"));
 
-            Assert.IsTrue(r.id == new Guid("A7EACE2C-E0F4-44B5-9C46-043664CE149A"));
+            Assert.IsTrue(r.id == new Guid("9DEE568C-02A9-46F0-9296-D9F898CC1020"));
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace UnitTests
         public void TestDuplicateAdd()
         {
             //string def = File.ReadAllText(@"C:\Users\impro\source\repos\DocumentDBService\DocumentDbDAL\BaseDefintions\DomainLookUp.def.json");
-            string def = File.ReadAllText(@"C:\Users\impro\source\repos\DocumentDBService\DocumentDbDAL\BaseDefintions\Connection.def.json");
+            string def = File.ReadAllText(@"C:\Users\Edward.McFadden\Source\Repos\DocumentDBService\DocumentDbDAL\BaseDefintions\Nap_Easement_1.def.json");
             QueryDefModel model = QueryDefModel.deserialize(def);
             model.id = Guid.NewGuid();
             DocumentDBModel doc = new();

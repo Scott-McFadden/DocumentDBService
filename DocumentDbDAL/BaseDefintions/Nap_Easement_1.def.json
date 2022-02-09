@@ -1,0 +1,75 @@
+{
+    "id": "2EF46AD9-6CA3-40F5-8361-7AE20959BECD",
+    "name": "EasementStatus",
+    "description": "Provides a list of easements, the respective status and program type",
+    "version": "1.0",
+    "connection": "NPAD",
+    "tags": [
+        "Easements",
+        "Status"
+    ],
+    "fields": [
+        {
+            "name": "easement id",
+            "dbName": "e.easement_id",
+            "description": "identification Key",
+            "dataType": "int",
+            "validation": "",
+            "validationType": 0,
+            "inputType": "text"
+        },
+        {
+            "name": "case file id",
+            "dbName": "e.[case_file_id]",
+            "description": "the case file id if a case has been created",
+            "dataType": "int",
+            "validation": "",
+            "validationType": 0,
+            "inputType": "text"
+        },
+        {
+            "name": "easement status name",
+            "dbName": "es.[easement_status_name]",
+            "description": "status of the easement",
+            "dataType": "string",
+            "validation": "none",
+            "validationType": 0,
+            "inputType": "text"
+        },
+        {
+            "name": "easement_program_name",
+            "dbName": "ep.[easement_program_name]",
+            "description": "contains the lookup key value",
+            "dataType": "string",
+            "validation": "none",
+            "validationType": 0,
+            "inputType": "text"
+        },
+        {
+            "name": "easement_program_abbrev",
+            "dbName": "ep.[easement_program_abbrev]",
+            "description": "easement program abbreviation",
+            "dataType": "string",
+            "validation": "none",
+            "validationType": 0,
+            "inputType": "text"
+        }
+    ],
+    "Modifications": [
+        {
+            "dateModified": "2022-02-09",
+            "who": "scott",
+            "jiraTicket": "",
+            "description": "initial Test"
+        }
+    ],
+    "getQuery":    "select |fields| from  [dbo].[easement] e join [dbo].[d_easement_status] es on e.easement_status_id = es.[easement_status_id]  join [dbo].[d_easement_program] ep on ep.[easement_program_id]=e.[easement_program_id] ",
+    "getOneQuery": "select |fields| from  [dbo].[easement] e join [dbo].[d_easement_status] es on e.easement_status_id = es.[easement_status_id]  join [dbo].[d_easement_program] ep on ep.[easement_program_id]=e.[easement_program_id]  where id = @id",
+    "deleteQuery": "",
+    "updateQuery": "",
+    "addQuery": "",
+    "roles": [
+        "anyone"
+    ]
+}
+	

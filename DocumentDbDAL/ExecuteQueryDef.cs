@@ -206,14 +206,28 @@ namespace DocumentDbDAL
                 if (!field.dbName.IsEmpty())
                 {
                     s.Append(comma);
-                    s.Append(" [" + field.dbName + "]");
+                    s.Append(sqlVariable(field.dbName) );
                     comma = ",";
                 }
             }
 
             return s.ToString();
         }
+        protected string sqlVariable(string v)
+        {
+            string vtemp = v.Replace("[", "").Replace("]", "");
+            string prefix = "";
+            string vname = "";
+            if (vtemp.IndexOf('.') > -1)
+            {
+                prefix = vtemp.Substring(0, vtemp.IndexOf('.')+1);
+                vname = vtemp.Substring(vtemp.IndexOf(".") + 1);
+            }
+            else
+                vname = vtemp;
 
+            return (prefix.IsEmpty() ? "" : prefix) + "[" + vname + "]";  
+        }
 
 
         /// <summary>
