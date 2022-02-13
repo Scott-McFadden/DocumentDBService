@@ -84,9 +84,14 @@ namespace DocumentDbDAL
         /// Gets a list of querydefmodel names in the cache
         /// </summary>
         /// <returns>list of names</returns>
-        public static List<string> GetName()
+        public static List<NameAndDescription> GetName()
         {
-            return cache.Select(a => a.Value.name).ToList();
+            List<NameAndDescription> ret = new();
+            foreach(var item in cache)
+            {
+                ret.Add(NameAndDescription.Fill(item.Value.id, item.Value.name, item.Value.description));
+            }
+            return ret;
         }
 
         /// <summary>

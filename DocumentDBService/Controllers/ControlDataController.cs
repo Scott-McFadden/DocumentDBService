@@ -27,7 +27,7 @@ namespace DocumentDBService.Controllers
         public ActionResult GetQueryDef()
         {
             Log.Information("GetQueryDef called");
-            List<string> QueryDefNames = new List<string>();
+            List<NameAndDescription> QueryDefNames = new List<NameAndDescription>();
             try
             {
                 QueryDefNames = QueryDefService.GetName();

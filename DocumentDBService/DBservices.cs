@@ -1,13 +1,8 @@
 ﻿using DocumentDbDAL;
-using DocumentDbDAL.Models; 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using DocumentDbDAL.Models;
 using Serilog;
-using System.Configuration;
-using Microsoft.Extensions.Configuration;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace DocumentDBService
 {
@@ -15,16 +10,21 @@ namespace DocumentDBService
     public class DBServices : IDBServices
     {
         private string ConnectionString = "";
-
+        private string Env = "";
         public ADOBase<DocumentDBModel> docDb { get; set; }
         public ADOBase<DomainLookUpModel> lookupdb { get; set; }
         public ADOBase<ConnectionModel> connectiondb { get; set; }
-        private IConfiguration Config; 
-
-        public DBServices(IConfiguration config )
+       
+        private JObject cfg;
+        
+        public DBServices( )
         {
-            Config = config;
-            ConnectionString = config.GetConnectionString("DocumentDB");
+            string f = File.ReadAllText(@"appsettings.json");
+            cfg = JObject.Parse(f);
+            Env = cfg.SelectToken($"data.Env").Value<string>();
+            ConnectionString = cfg.SelectToken($"ConnectionStrings.{Env}").Value<string>();
+           
+           
 
             docDb = new(ConnectionString, "dbo.DocTable");
             lookupdb = new ADOBase<DomainLookUpModel>(ConnectionString, "dbo.LookUpTable");

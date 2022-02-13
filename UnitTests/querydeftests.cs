@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 
 namespace UnitTests
@@ -12,22 +13,33 @@ namespace UnitTests
     public class QueryDefTests
     {
 
-        static string   ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
-        static ADOBase<DocumentDBModel> docDb;
+         static ADOBase<DocumentDBModel> docDb;
         static ADOBase<DomainLookUpModel> lookupdb;
         static ADOBase<ConnectionModel> connectiondb;
+        //static ConfigurationManager config; 
+
+
+        const string Env = "LocalDev";
+
+
+        static string ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
+        static JObject config;
 
 
         [ClassInitialize]
          public static void DomainLookUp(TestContext context)
         {
+            
+            string f = File.ReadAllText(@"appsettings.json");
+            config = JObject.Parse(f);
+            ConnectionString = config.SelectToken("ConnectionStrings.LocalDev").Value<string>();
             docDb = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
             lookupdb = new ADOBase<DomainLookUpModel>(ConnectionString, "dbo.LookUpTable");
             connectiondb = new ADOBase<ConnectionModel>(ConnectionString, "dbo.connections");
 
             ConnectionService.Populate(connectiondb);
             QueryDefService.Populate(docDb);
-
+            
         }
 
         [TestMethod]
@@ -66,7 +78,9 @@ namespace UnitTests
         {
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
-            JObject result = EQD.GetOne("EB133A3C-B70A-4CA8-BF07-F91C10F740FB");
+
+            string id = config.SelectToken($"Files.{Env}.TestGetOneInSQL").Value<string>();
+            JObject result = EQD.GetOne(id);
 
             Assert.IsTrue(result["Value"].Value<string>() == "test");
         }
@@ -97,6 +111,7 @@ namespace UnitTests
         {
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
+           
             JArray result = EQD.Get();
 
             Assert.IsTrue(result.Count > 0);
@@ -134,6 +149,12 @@ namespace UnitTests
 
         }
 
+        [TestMethod]
+        public void TestQueryDefGet()
+        {
+            var ret = QueryDefService.GetName();
+            Assert.IsTrue(ret.Count > 0);
+        }
 
 
     }

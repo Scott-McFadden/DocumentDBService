@@ -1,6 +1,7 @@
 using DocumentDbDAL;
 using DocumentDbDAL.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,15 +12,30 @@ namespace UnitTests
     public class DocumentDBDALTests
     {
 
-        string   ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
+        static string Env = "LocalDev";
+
+
+        static string   ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
+        static JObject config;
+        
+        [ClassInitialize]
+        public static void Init(TestContext context)
+        {
+
+            string f = File.ReadAllText(@"appsettings.json");
+              config = JObject.Parse(f);
+            ConnectionString = config.SelectToken($"ConnectionStrings.{Env}").Value<string>();
+            Env = config.SelectToken($"env").Value<string>();
+        }
 
         [TestMethod]
         public void Get1RecordTest()
         {
             ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
-            var r = db.Get(new Guid("9DEE568C-02A9-46F0-9296-D9F898CC1020"));
+            string Id = config.SelectToken($"Files.{Env}.ID").Value<string>();
+            var r = db.Get(new Guid(Id));
 
-            Assert.IsTrue(r.id == new Guid("9DEE568C-02A9-46F0-9296-D9F898CC1020"));
+            Assert.IsTrue(r.id == new Guid(Id));
         }
 
         [TestMethod]
@@ -110,8 +126,13 @@ namespace UnitTests
         [TestMethod]
         public void TestDuplicateAdd()
         {
-            //string def = File.ReadAllText(@"C:\Users\impro\source\repos\DocumentDBService\DocumentDbDAL\BaseDefintions\DomainLookUp.def.json");
-            string def = File.ReadAllText(@"C:\Users\Edward.McFadden\Source\Repos\DocumentDBService\DocumentDbDAL\BaseDefintions\Nap_Easement_1.def.json");
+
+            // this will only really test anything if there is a duplicate record in the database.
+            // if the record does not exist, it will add it.  
+            // So this test may need to be run twice to prove that it works if the records added does not already exist.
+
+            string file = config.SelectToken($"Files.{Env}.QueryDef1").Value<string>();
+            string def = File.ReadAllText(file);
             QueryDefModel model = QueryDefModel.deserialize(def);
             model.id = Guid.NewGuid();
             DocumentDBModel doc = new();
@@ -125,7 +146,7 @@ namespace UnitTests
             try
             {
                 ADOBase<DocumentDBModel> db = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
-                   r = db.Add(doc);
+                r = db.Add(doc);
             }
             catch (Exception ex)
             {

@@ -22,6 +22,14 @@ namespace DocumentDBService.Controllers
             dbServices = DBService;
             executeQueryDef = ExecuteQueryDef;
         }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            Log.Information($"Get   ");
+            var ret = QueryDefService.GetName();
+            return Ok(ret);
+        }
         /// <summary>
         /// Gets all matching the query
         /// </summary>
