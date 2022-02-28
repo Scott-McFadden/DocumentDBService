@@ -13,8 +13,6 @@ namespace UnitTests
     {
 
         static string Env = "LocalDev";
-
-
         static string   ConnectionString = "Data Source=10.203.23.90\\NRCdBoxixxDba0A, 26090; Initial Catalog=CDMAPSPEED;Integrated Security=true";
         static JObject config;
         
@@ -24,7 +22,7 @@ namespace UnitTests
 
             string f = File.ReadAllText(@"appsettings.json");
               config = JObject.Parse(f);
-            ConnectionString = config.SelectToken($"ConnectionStrings.{Env}").Value<string>();
+            ConnectionString = config.SelectToken($"ConnectionStrings.{Env}").Value<string>().ResolveIP("DocumentDB");
             Env = config.SelectToken($"env").Value<string>();
         }
 

@@ -1,0 +1,32 @@
+﻿insert into [DocumentDb].[dbo].[Connections] ([id], [name], [description], [engineType], [dbName], [connectionString], [collectionName], [uniqueKeys], [tags], [UserId], [Password], [AuthModel]) VALUES 
+( '53380395-96EF-4E41-AF9F-434586FB993C','LookUpTable','list of domain look up values','MSSQL','DocumentDb','Data Source=IPADDRESS; Initial Catalog=DocumentDb; ','dbo.LookUpTable','id, category, name','lookup','dev','dev','MSSQL'),
+( '3B4F9E88-88BE-44E6-8652-A62F978C269F','Connections','List of available Connections','MSSQL','DocumentDb','Data Source=IPADDRESS; Initial Catalog=DocumentDb; ','dbo.Connections','id, name','connections','dev','dev','MSSQL'),
+( '756C7086-BD27-4AAC-AE9A-CDA7FF20BB83','DocumentDb','Json Document Storage','MSSQL','DocumentDb','Data Source=*IPADDRESS*; Initial Catalog=DocumentDb; ','dbo.DocTable','id, KeyValue','json docs','dev','dev','MSSQL'),
+( 'AD9EE1A2-A0C8-4E20-BF0D-941551461738','DocumentDb','Json Document Storage','MSSQL','DocumentDb','Data Source=*DOCUMENTDB*; Initial Catalog=DocumentDb; ','dbo.DocTable','id, KeyValue','json docs','dev','dev','MSSQL') 
+
+INSERT INTO  [DocumentDb].[dbo].[LookUpTable] ([id],  [Name],[Category], [Value]) VALUES  
+( '31D5B97F-CCE5-465C-9374-9A023A13EF5D','DataType','QueryDef','Array'),
+( '0CDC2DDA-931A-438D-8E0B-2A71AF09A34A','DataType','QueryDef','Date'),
+( 'E8F5CB15-83F3-4360-AD39-AC179F0A4B96','DataType','QueryDef','DateTime'),
+( '49E0DE13-FDB8-416E-AFA5-B6E8CF9AAE8B','DataType','QueryDef','float'),
+( '7207504F-EBCC-4DF6-A5CE-91E7A58F4619','DataType','QueryDef','int'),
+( '422C57E8-3772-4F8F-8AA9-2E90F7D2311B','DataType','QueryDef','json'),
+( '11152DA4-D2E1-4C48-BFF8-FA9D8C768E9E','DataType','QueryDef','money'),
+( 'CD4854FB-B46E-4866-8311-965B476D5A2C','DataType','QueryDef','object'),
+( '94682119-3F0D-49FE-BD97-28D8142A05CE','DataType','QueryDef','qdefField[]'),
+( '2C4916C4-E1B0-4B3D-9F9D-75A9D37D77AA','DataType','QueryDef','string'),
+( 'D5681AC9-F253-4508-B225-3C48056E2B84','DataType','QueryDef','stringArray'),
+( 'A395F076-8A7F-4494-AE9E-570D2C2BEBB9','DataType','QueryDef','validationEnum'),
+( 'F2EF99F8-6212-4D5E-AF7A-D17DC668F66C','Engine','QueryDef','Mongo'),
+( '51280C09-DC80-4378-89FD-895E93E251D4','Engine','QueryDef','MSSQL'),
+( 'BEC41F74-1714-4AD8-886F-128B2BAFBF71','inputType','QueryDef','date'),
+( '7F7B52B5-A98D-4D45-BAA0-A4F9CF8E3E34','inputType','QueryDef','Guid'),
+( '5112B960-7229-4BBE-8551-6E5D8AAB2EDC','inputType','QueryDef','password'),
+( '45F8907A-0576-4B00-B999-D82879494E03','inputType','QueryDef','text'),
+( '1083CC8A-2F62-4045-B270-69B8C950CF7D','inputType','QueryDef','textArray'),
+( 'F2893F8E-EC16-4901-AE2D-A54FEFB44925','roles','QueryDef','admin'),
+( '7046BCDC-E3AA-47FC-AC4D-0CF5ED263ECD','roles','QueryDef','anyone'),
+( 'A1CFD972-6213-4A91-998E-C5E2AD2E93BF','roles','QueryDef','general'),
+( '09764B76-060C-46AE-B7E3-7985F3DBA890','roles','QueryDef','internal'),
+( 'A3D1282E-A7BF-47F4-BA4D-B493CAFA733D','test','test','test'),
+( '75259C2A-57E6-4D3F-A5DF-0B9F07929F24','test','unittest','1')

@@ -3,11 +3,12 @@
   "name": "DomainLookUp",
   "description": "Operations against the Domain Lookup Table",
   "version": "1.0",
-  "connection": "LookUpTable",
+  "connection": "DocumentDb",
   "tags": [
     "LookUp",
     "General"
   ],
+  "orderby" : "name asc", 
   "fields": [
     {
       "name": "id",

@@ -23,6 +23,10 @@ namespace DocumentDBService.Controllers
             executeQueryDef = ExecuteQueryDef;
         }
 
+        /// <summary>
+        /// gets the available queryDefs
+        /// </summary>
+        /// <returns>returns list of id, name and description for each query definition</returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -30,6 +34,7 @@ namespace DocumentDBService.Controllers
             var ret = QueryDefService.GetName();
             return Ok(ret);
         }
+
         /// <summary>
         /// Gets all matching the query
         /// </summary>
@@ -60,6 +65,7 @@ namespace DocumentDBService.Controllers
 
             return Ok(result);
         }
+
         /// <summary>
         /// Gets all 
         /// </summary>

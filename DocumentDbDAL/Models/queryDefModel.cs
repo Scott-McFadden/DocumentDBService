@@ -35,6 +35,10 @@ namespace DocumentDbDAL.Models
         /// </summary>
         public IList<string> tags { get; set; } = new String[]{ "" };
         /// <summary>
+        /// order by parameters for the get entries
+        /// </summary>
+        public string orderby { get; set; } = string.Empty;
+        /// <summary>
         /// Field List 
         /// </summary>
         public IList<QdefFieldModel> fields { get; set; } = new List<QdefFieldModel>() { new QdefFieldModel() };

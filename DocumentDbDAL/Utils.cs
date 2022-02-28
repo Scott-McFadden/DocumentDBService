@@ -2,7 +2,10 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -125,9 +128,41 @@ namespace DocumentDbDAL
             return criteria;
         }
 
-       
+       /// <summary>
+       /// returns the currect ip address 
+       /// </summary>
+       /// <returns>ip address</returns>
+        public static string GetIPAddress()
+        {
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
 
-       
+            return localIP;
+        }
+
+        public static Dictionary<string, string> IpList = new();
+        public static string ResolveIP(this string connectionString, string name)
+        {
+            if (IpList.Count == 0)
+            {
+                string f = File.ReadAllText(@"appsettings.json");
+                JObject config = JObject.Parse(f);
+                //ConnectionString = config.SelectToken("ConnectionStrings.LocalDev").Value<string>().Replace("IPADDRESS", Utils.GetIPAddress());
+                var d = (JArray) config["DataSources"];
+                IpList.Add("IPADDRESS", Utils.GetIPAddress());
+                foreach (var e in d)
+                    IpList.Add(e["name"].ToString(), e["address"].ToString());
+            }
+            if (IpList.ContainsKey(name))
+                return connectionString.Replace("*" + name + "*", IpList[name].ToString());
+            else
+                return connectionString;
+        }
 
         //public static string SelectFieldList(this IList<QdefFieldModel> values)
         //{

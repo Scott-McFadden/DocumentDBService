@@ -6,7 +6,6 @@ using Newtonsoft.Json.Linq;
 
 namespace DocumentDBService
 {
-
     public class DBServices : IDBServices
     {
         private string ConnectionString = "";
@@ -22,17 +21,14 @@ namespace DocumentDBService
             string f = File.ReadAllText(@"appsettings.json");
             cfg = JObject.Parse(f);
             Env = cfg.SelectToken($"data.Env").Value<string>();
-            ConnectionString = cfg.SelectToken($"ConnectionStrings.{Env}").Value<string>();
+            ConnectionString = cfg.SelectToken($"ConnectionStrings.{Env}").Value<string>().ResolveIP("DocumentDb");
            
-           
-
             docDb = new(ConnectionString, "dbo.DocTable");
             lookupdb = new ADOBase<DomainLookUpModel>(ConnectionString, "dbo.LookUpTable");
             connectiondb = new ADOBase<ConnectionModel>(ConnectionString, "dbo.connections");
             ConnectionService.Populate(connectiondb);
             QueryDefService.Populate(docDb);
             Log.Information ("DBServices initialization Complete");
-
         }
     }
 }

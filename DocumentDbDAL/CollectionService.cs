@@ -42,9 +42,12 @@ namespace DocumentDbDAL
         {
             List <ConnectionModel> rawDocs = DB.Get();
             cache = new();
+            string IpAddress = Utils.GetIPAddress();
+
             foreach(var d in rawDocs)
             {
-                 
+                d.connectionString = d.connectionString.ResolveIP("IPADDRESS").ResolveIP(d.name);
+                
                 cache.Add(d.name, d);
             }
         }

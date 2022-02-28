@@ -52,9 +52,12 @@ namespace DocumentDbDAL
 
             using (conn = GetConnection())
             {
-                var query = queryDefModel.getQuery.Replace("|fields|", SelectedFieldsList()).Replace("|table|", connectionModel.collectionName );
+                var query = queryDefModel.getQuery.Replace("|fields|", SelectedFieldsList());
                 if(!criteria.IsEmpty())
                     query = query + " where " + criteria;
+
+                if (!queryDefModel.orderby.IsEmpty())
+                    query = query + " order by " + queryDefModel.orderby;
 
                 var cmd = new SqlCommand(query, conn);
 
@@ -74,10 +77,50 @@ namespace DocumentDbDAL
             return ret;
         }
 
+        public  override JArray GetLimit(string criteria = "", int page=0, int pageSize=0)
+        {
+            if (!queryDefModel.canGet)
+                throw new Exception("Current QueryDef does not allow Get Operations");
+
+            if (pageSize == 0)
+                throw new Exception("pageSize cannot be 0");
+
+            if (queryDefModel.orderby.IsEmpty())
+                throw new Exception("querydef orderby property must be populated");
+
+            JArray ret = new();
+
+            using (conn = GetConnection())
+            {
+                var query = queryDefModel.getQuery.Replace("|fields|", SelectedFieldsList());
+                if (!criteria.IsEmpty())
+                    query = query + " where " + criteria;
+  
+                query = query + $" order by {queryDefModel.orderby} offset {page * pageSize} rows fetch next {pageSize} rows only";
+
+                var cmd = new SqlCommand(query, conn);
+
+                var Result = cmd.ExecuteReader();
+                while (Result.Read())
+                {
+                    JObject curNode = new();
+
+                    for (int a = 0; a < Result.FieldCount; a++)
+                    {
+                        curNode.Add(new JProperty(Result.GetName(a), Result[a]));
+                    }
+
+                    ret.Add(curNode);
+                }
+            }
+            return ret;
+        }
+
         public override int Delete(string id)
         {
             if (!queryDefModel.canDelete)
                 throw new Exception("Current QueryDef does not allow delete Operations");
+
             int ret =0;
 
             using (conn = GetConnection())
@@ -112,7 +155,6 @@ namespace DocumentDbDAL
             return ret;
         }
 
-       
         public override int Insert(JObject model)
         {
             if (!queryDefModel.canAdd)

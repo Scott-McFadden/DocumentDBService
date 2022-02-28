@@ -1,13 +1,14 @@
 {
-  "id": "xxxx",
+  "id": "75BE1595-DB15-40D5-88A3-E73FED6ABC4C",
   "name": "QueryDef",
   "description": "Specific querydef Operations",
   "version": "1.0",
-  "connection": "querydefs",
+  "connection": "DocumentDb",
   "tags": [
     "connections",
     "Admin"
   ],
+  "orderby": "name asc",
   "fields": [
     {
       "name": "Name",
@@ -141,7 +142,7 @@
   ],
   "getQuery": "{ { \"name\", \"${docname}\" }}",
   "deleteQuery": "",
-  "getOneQuery": "", 
+  "getOneQuery": "",
   "updateQuery": "",
   "addQuery": "",
   "roles": [

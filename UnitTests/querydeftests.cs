@@ -29,10 +29,10 @@ namespace UnitTests
         [ClassInitialize]
          public static void DomainLookUp(TestContext context)
         {
-            
+            Console.WriteLine(DateTime.Now);
             string f = File.ReadAllText(@"appsettings.json");
             config = JObject.Parse(f);
-            ConnectionString = config.SelectToken("ConnectionStrings.LocalDev").Value<string>();
+            ConnectionString = config.SelectToken("ConnectionStrings.LocalDev").Value<string>().ResolveIP("DocumentDB") ;
             docDb = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
             lookupdb = new ADOBase<DomainLookUpModel>(ConnectionString, "dbo.LookUpTable");
             connectiondb = new ADOBase<ConnectionModel>(ConnectionString, "dbo.connections");
@@ -45,7 +45,7 @@ namespace UnitTests
         [TestMethod]
         public void GetConnection()
         {
-
+            Console.WriteLine(DateTime.Now);
             string tar = "Connections";
             var c = ConnectionService.Get(tar);
             Assert.AreEqual<string>(tar, c.name);
@@ -56,6 +56,7 @@ namespace UnitTests
         [TestMethod]
         public void GetQueryDef()
         {
+            Console.WriteLine(DateTime.Now);
             string tar = "DomainLookUp";
             var c = QueryDefService.Get(tar);
             Assert.AreEqual<string>(tar, c.name);
@@ -65,6 +66,7 @@ namespace UnitTests
         [TestMethod]
         public void UseQDefGet()
         {
+            Console.WriteLine(DateTime.Now);
             string tar = "DomainLookUp";
             var queryDef = QueryDefService.Get(tar);
             Assert.AreEqual<string>(tar, queryDef.name, "ensure correct definition has been retrieved");
@@ -76,6 +78,7 @@ namespace UnitTests
         [TestMethod]
         public void TestGetOneInSQL()
         {
+            Console.WriteLine(DateTime.Now);
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
 
@@ -85,18 +88,12 @@ namespace UnitTests
             Assert.IsTrue(result["Value"].Value<string>() == "test");
         }
         
-        [TestMethod]
-        public void SelectFieldList()
-        {  // obsolete test
-            //string tar = "DomainLookUp";
-            //var queryDef = QueryDefService.Get(tar);
-            //string result = queryDef.fields.SelectFieldList();
-            //Assert.IsTrue(result == " [id], [name], [category], [Value]", "correct field list has been returned and formated correctly.");
-        }
+        
 
         [TestMethod]
         public void TestGetWithCriteriainSql()
         {
+            Console.WriteLine(DateTime.Now);
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
             JArray result = EQD.Get(" Category='QueryDef' and Name='DataType' ");
@@ -109,6 +106,7 @@ namespace UnitTests
         [TestMethod]
         public void TestGetAllinSql() 
         {
+            Console.WriteLine(DateTime.Now);
             ExecuteQueryDef EQD = new();
             EQD.QueryDefName = "DomainLookUp";
            
@@ -152,10 +150,27 @@ namespace UnitTests
         [TestMethod]
         public void TestQueryDefGet()
         {
+            Console.WriteLine(DateTime.Now);
             var ret = QueryDefService.GetName();
             Assert.IsTrue(ret.Count > 0);
         }
 
+        [TestMethod]
+        public void TestQueryDefGetLimit()
+        {
+            Console.WriteLine(DateTime.Now);
+            ExecuteQueryDef EQD = new();
+            EQD.QueryDefName = "DomainLookUp";
+            JArray result = EQD.GetLimit(" Category='QueryDef' ",0,5);
+            Console.WriteLine(result.ToString());
+            Console.WriteLine(result[4]);
+            Assert.IsTrue(result.Count == 5, "ensure only 5 records have been recieved");
+            Console.WriteLine("-------------------");
+            JArray result2 = EQD.GetLimit(" Category='QueryDef' ", 4, 1);
+            Console.WriteLine(result2.ToString());
+            Assert.IsTrue(result[4]["id"].ToString() == result2[0]["id"].ToString(), "record is the same");
+             
+        }
 
     }
 }

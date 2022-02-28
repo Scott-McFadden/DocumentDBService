@@ -3,7 +3,7 @@
   "name": "Connections",
   "description": "Connection Lookup Table",
   "version": "1.0",
-  "connection": "Connections",
+  "connection": "DocumentDb",
   "tags": [
     "Connections",
     "Admin"

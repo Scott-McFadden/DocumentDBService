@@ -34,7 +34,7 @@ namespace DocumentDbDAL
 
         public abstract JObject GetOne(string id);
         public abstract JArray Get(string criteria);
-
+        public abstract JArray GetLimit(string criteria = "", int page = 0, int pageSize = 0);
         public abstract int Delete(string id);
         public abstract int Update(JObject model);
         public abstract int Insert(JObject model);

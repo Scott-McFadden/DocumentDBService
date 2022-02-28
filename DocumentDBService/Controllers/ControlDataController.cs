@@ -23,22 +23,7 @@ namespace DocumentDBService.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult GetQueryDef()
-        {
-            Log.Information("GetQueryDef called");
-            List<NameAndDescription> QueryDefNames = new List<NameAndDescription>();
-            try
-            {
-                QueryDefNames = QueryDefService.GetName();
-                return Ok(QueryDefNames);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Error in GetQueryDef");
-                return BadRequest(ex);
-            }
-        }
+        
         [HttpGet]
         [Route("ControlData/{queryDefName}/GetFields")]
         public ActionResult GetFields(string queryDefName)

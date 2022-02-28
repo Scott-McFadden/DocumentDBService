@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DocumentDbDAL.ADOBase&lt;T&gt;">
+    <Position X="11.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAaAAACgAAAAAAxAAAAAAAAAAAWAAAAAAAAAARgCABA=</HashCode>
+      <FileName>ADOBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.ADOService">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAgAAAAAAwAAAAAAAAAAAWAAAAAAAAAARACABA=</HashCode>
+      <FileName>ADOService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.ConnectionService">
+    <Position X="15.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCIAAAAAAABAAABAIAAAAAAAAAEAAAAAAAAAAAAAhDA=</HashCode>
+      <FileName>CollectionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.ExecuteQueryDef" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEABAAAAAEBASAAAAAAAAAUEAAAAAAAAABAgABA=</HashCode>
+      <FileName>ExecuteQueryDef.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DocumentDbDAL.ExecuteQueryDefBase">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAABAAABhACAAQAAAAAAEAAAAAAAAAAAAiAAA=</HashCode>
+      <FileName>IExecuteQueryDef.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DocumentDbDAL.QueryDefService">
+    <Position X="18.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCIAAAAAAAAAAABgAAAAAAAAAAEAAAAAAAAAAAAAhDA=</HashCode>
+      <FileName>QueryDefService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.Utils">
+    <Position X="17" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAACBAAAAAAAABAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.Models.ConnectionModel">
+    <Position X="2.75" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAABACAAAgAIAAAIAgAAAAFAAACQQBAABAAgkA=</HashCode>
+      <FileName>Models\ConnectionModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DocumentDbDAL.Models.DocumentDBModel">
+    <Position X="0.5" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAAAACAAEAAAAAABAAAAAAAAAAAAAMAAAAggA=</HashCode>
+      <FileName>Models\DocumentDBModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DocumentDbDAL.Models.DomainLookUpModel">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAAAAAAAAAAAAIAQAAAAAAAAAQAAgAAAAigA=</HashCode>
+      <FileName>Models\DomainLookUpModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DocumentDbDAL.Models.QdefFieldModel">
+    <Position X="8.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAABAAACQQAIAAEAAAgAAAEAAAAQAAAIAAAAAA=</HashCode>
+      <FileName>Models\qdefField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.Models.QueryDefModel">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgCAICAACAWAAAAAoAADIAAAAAAEAAEARABAAABBAgA=</HashCode>
+      <FileName>Models\queryDefModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.Models.NameAndDescription">
+    <Position X="4.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAACAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\NameAndDescription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DocumentDbDAL.Models.ModificationModel">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAEAQgAQAAAAAAAAAA=</HashCode>
+      <FileName>Models\Modification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DocumentDbDAL.IExecuteQueryDef" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAABAAAAQAAAAAAEAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>IExecuteQueryDef.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DocumentDbDAL.Models.IModel" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAggA=</HashCode>
+      <FileName>Models\IModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
