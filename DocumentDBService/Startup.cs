@@ -44,6 +44,10 @@ namespace DocumentDBService
             });
             services.AddSingleton<IDBServices, DBServices>();
             services.AddScoped<IExecuteQueryDef, ExecuteQueryDef>();
+            services.AddCors(options => options.AddPolicy("allowall", 
+                builder => builder.AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,7 +78,7 @@ namespace DocumentDBService
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("allowall" ); 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
