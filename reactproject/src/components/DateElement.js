@@ -1,24 +1,21 @@
 import React from 'react';
-import {   Input } from 'reactstrap';
- 
+import { Input } from 'reactstrap';
+
 import './tooltips.css';
 
-export default class TextElement extends React.Component {
+export default class DateElement extends React.Component {
 
     constructor(props) {
         super(props);
-        
+
         this.requiredMark = this.props.required && this.props.required === 'true' ? "*" : "";
         this.changedValue = this.changedValue.bind(this);
-        this.renderDataList = this.renderDataList.bind(this);
-          
+
     }
     loaded = false;
-    newlabel = ""; 
+    newlabel = "";
     value = "";
     requiredMark = "";
-    datalist = "";
-    datalistName = "dl_" + this.props.name;
 
     componentDidMount() {
         this.loaded = true;
@@ -30,45 +27,28 @@ export default class TextElement extends React.Component {
         this.props.onChange(this.props.name, this.value);
     }
 
-    renderDataList() {
-        if (this.props.datalist)
-            return (
-                <datalist id={this.datalistName}>
-                    {this.props.datalist.map((i) => {
-                        return (<option value= {i}  />);
-                    }
-                    )}
-                </datalist>
-
-            
-                );
-
-
-    }
     render() {
-         
-        return ( 
+
+        return (
             <div className="input-group mb-3">
                 <span
                     className="input-group-text"
                     id={this.props.name + "_id"}>
                     <span style={{ color: "red" }}>{this.requiredMark}</span>{this.props.label}
                 </span>
-                <span data-tip={ this.props.description }>
+                <span data-tip={this.props.description}>
                     <Input
-                        type="text"
+                        type="date"
                         className="form-control"
                         onChange={this.changedValue}
                         aria-describedby={this.props.name + "_id"}
-                        required={this.props.required} 
+
                         value={this.value}
-                        list={this.datalistName}
                         id={this.props.name + "_id"}
                         placeholder={this.props.placeHolder ? this.props.placeholder : ""}
                     />
-                    {this.renderDataList()}
-                  </span>  
-            </div> 
-            );
+                </span>
+            </div>
+        );
     }
 }

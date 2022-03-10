@@ -2,7 +2,9 @@ import { Collapse, Nav, NavItem, NavLink, Col, Row, Button, Form, TabContent, Ta
 import React, { Component } from 'react';
 import   classnames   from 'classnames';
 import  NavBar1  from './components/NavBarComponent'; 
-import   TextElement   from './components/textElement';
+import TextElement from './components/textElement';
+import DisplayPropertiesAndValues from './components/DisplayPropertiesAndValues';
+import DateElement from './components/DateElement';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -19,7 +21,7 @@ export default class App extends Component {
             isOpen: false,
             activeTab: '1',
             panel: {
-                getOne: false,
+                getOne: true,
                 get: false,
                 getlimit: false,
                 insert: false,
@@ -29,9 +31,9 @@ export default class App extends Component {
             formData : {
                 testitem : ""
             }
-        };
-    }
-    ;
+        }; 
+        this.resetPanel("getOne");
+    };
 
     componentDidMount() {
         this.populateWeatherData();
@@ -45,6 +47,7 @@ export default class App extends Component {
 
         )
     }
+
     static renderForecastsTable(forecasts) {
         return (
             <table className='table table- striped' aria-labelledby="tabelLabel">
@@ -76,11 +79,13 @@ export default class App extends Component {
         return temppanel;
 
     }
+
     updateFormData(field, value) {
         var s = this.state.formData;
         s[field] = value;
         this.setState({ formData: s });
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -90,6 +95,7 @@ export default class App extends Component {
     handleTabChange(e) {
         console.log("tab change", e);
     }
+
     tabtoggle(tab) {
         if (this.state.activeTab !== tab) {
             this.setState({
@@ -97,11 +103,13 @@ export default class App extends Component {
             });
         }
     }
+
     handleShowPanel(e) {
         
         this.setState({ panel : this.resetPanel(e)})
         console.log(e, this.state.panel[e]);
     }
+
     render() {
         let contents = this.state.loading
             ?  <span><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></span>
@@ -133,7 +141,6 @@ export default class App extends Component {
                         <NavLink
                             className={classnames({ active: this.state.activeTab === '3' })}
                             onClick={() => { this.tabtoggle('3'); }}
-                            
                         >
                             QueryDef Editor
                         </NavLink>
@@ -143,7 +150,6 @@ export default class App extends Component {
                         <NavLink
                             className={classnames({ active: this.state.activeTab === '4' })}
                             onClick={() => { this.tabtoggle('4'); }}
-
                         >
                             Weather
                         </NavLink>
@@ -169,8 +175,24 @@ export default class App extends Component {
                                     required='true'
                                     value='oldvalue'
                                     label='label this'
+                                    datalist={['test', 'quest', 'west']}
                                     description='hover over me please'
                                     onChange={(field, value) => this.updateFormData(field, value) }
+                                />
+                                <TextElement name='newItem'
+                                    placeholder='placeholder new items goes here'
+                                    required='false'
+                                    value='new item value'
+                                    label='item number 2'
+                                    description='hover over me please'
+                                    onChange={(field, value) => this.updateFormData(field, value)}
+                                />
+                                <DateElement name='DateItem'
+                                    required='false'
+                                    value={Date.now() }
+                                    label='Date item'
+                                    description='hover over me please'
+                                    onChange={(field, value) => this.updateFormData(field, value)}
                                 />
                                 <Button>Submit</Button>
                             </Form>
@@ -184,7 +206,7 @@ export default class App extends Component {
                         </Row>
                         <Row>
                             <Collapse isOpen={this.state.panel.getOne}>
-                                 getOnePanel
+                                <DisplayPropertiesAndValues data={this.state.formData} />
                             </Collapse>
                             <Collapse isOpen={this.state.panel.get}>
                                  getOnePanel
@@ -201,7 +223,6 @@ export default class App extends Component {
                             <Collapse isOpen={this.state.panel.delete}>
                                 deletePanelOpen
                             </Collapse>
-
                         </Row>
 
                     </TabPane>
@@ -210,8 +231,7 @@ export default class App extends Component {
                             <Col sm="6">
                                 <Card body>
                                     <CardTitle>Weather Forcast</CardTitle>
-                                    <CardText>{contents}</CardText>
-                                     
+                                    <CardText>{contents}</CardText>I 
                                 </Card>
                             </Col>
                         </Row>
