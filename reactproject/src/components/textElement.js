@@ -34,19 +34,14 @@ export default class TextElement extends React.Component {
         if (this.props.datalist)
             return (
                 <datalist id={this.datalistName}>
-                    {this.props.datalist.map((i) => {
-                        return (<option value= {i}  />);
+                    {this.props.datalist.map((i,item) => {
+                        return (<option key={i} value= {item}  />);
                     }
                     )}
-                </datalist>
-
-            
-                );
-
-
+                </datalist> 
+                ); 
     }
-    render() {
-         
+    render() { 
         return ( 
             <div className="input-group mb-3">
                 <span

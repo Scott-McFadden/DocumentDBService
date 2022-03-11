@@ -24,7 +24,7 @@ export default class DisplayPropertiesAndValues extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    { a.map( b => <tr><td>{b[0]}</td><td>{b[1]}</td></tr>) }
+                    {a.map(b => <tr key={b[0]}><td>{b[0]}</td><td>{b[1]}</td></tr>) }
                 </tbody>
             </table> 
             );

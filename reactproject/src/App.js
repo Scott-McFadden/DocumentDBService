@@ -5,6 +5,7 @@ import  NavBar1  from './components/NavBarComponent';
 import TextElement from './components/textElement';
 import DisplayPropertiesAndValues from './components/DisplayPropertiesAndValues';
 import DateElement from './components/DateElement';
+import ButtonElement from './components/htmlElements/buttonElement';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -15,6 +16,9 @@ export default class App extends Component {
         this.resetPanel = this.resetPanel.bind(this);
         this.handleShowPanel = this.handleShowPanel.bind(this);
         this.updateFormData = this.updateFormData.bind(this);
+        this.onClickMeClick = this.onClickMeClick.bind(this);
+
+
         this.state = {
             forecasts: [],
             loading: true,
@@ -104,6 +108,10 @@ export default class App extends Component {
         }
     }
 
+    onClickMeClick(t) {
+        console.log("click me ", t);
+    }
+
     handleShowPanel(e) {
         
         this.setState({ panel : this.resetPanel(e)})
@@ -172,7 +180,7 @@ export default class App extends Component {
                             <Form>
                                 <TextElement name='testitem'
                                     placeholder='placeholder test here'
-                                    required='true'
+                                    required={true}
                                     value='oldvalue'
                                     label='label this'
                                     datalist={['test', 'quest', 'west']}
@@ -181,19 +189,27 @@ export default class App extends Component {
                                 />
                                 <TextElement name='newItem'
                                     placeholder='placeholder new items goes here'
-                                    required='false'
+                                    required={false}
                                     value='new item value'
                                     label='item number 2'
                                     description='hover over me please'
                                     onChange={(field, value) => this.updateFormData(field, value)}
                                 />
                                 <DateElement name='DateItem'
-                                    required='false'
-                                    value={Date.now() }
+                                    required={false}
+                                    value={new Date().toISOString().slice(0, 10) }
                                     label='Date item'
                                     description='hover over me please'
                                     onChange={(field, value) => this.updateFormData(field, value)}
                                 />
+                                <ButtonElement
+                                    value='clickme'
+                                    buttonType='primary'
+                                    description='button hover works'
+                                    disabled={false}
+                                    name="thing1" showprops={true}
+                                    outline={false}
+                                    onClick={(t) => this.onClickMeClick(t)} >clickme</ButtonElement>
                                 <Button>Submit</Button>
                             </Form>
                         </Row>
