@@ -5,9 +5,7 @@ import {
     NavbarToggler,
     NavbarBrand,
     Nav,
-    NavItem,Button,
-    NavLink,
-    UncontrolledDropdown,
+    NavItem,Button, 
     DropdownToggle,DropdownItem, Dropdown,
     DropdownMenu, 
 } from 'reactstrap';
@@ -25,7 +23,7 @@ export default class NavBar1 extends React.Component {
         };
     }
      loaded = false;
-
+      
     componentDidMount() {
         this.loaded = true;
     }

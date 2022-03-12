@@ -6,6 +6,7 @@ import TextElement from './components/textElement';
 import DisplayPropertiesAndValues from './components/DisplayPropertiesAndValues';
 import DateElement from './components/DateElement';
 import ButtonElement from './components/htmlElements/buttonElement';
+import PasswordElement from './components/htmlElements/PasswordElement';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -195,6 +196,12 @@ export default class App extends Component {
                                     description='hover over me please'
                                     onChange={(field, value) => this.updateFormData(field, value)}
                                 />
+                                <TextElement name='newItem2'
+                                    placeholder='newItem2'
+                                    required={false}
+                                    description='hover over me please'
+                                    onChange={(field, value) => this.updateFormData(field, value)}
+                                />
                                 <DateElement name='DateItem'
                                     required={false}
                                     value={new Date().toISOString().slice(0, 10) }
@@ -202,14 +209,20 @@ export default class App extends Component {
                                     description='hover over me please'
                                     onChange={(field, value) => this.updateFormData(field, value)}
                                 />
-                                <ButtonElement
-                                    value='clickme'
+                                <ButtonElement 
                                     buttonType='primary'
                                     description='button hover works'
                                     disabled={false}
                                     name="thing1" showprops={true}
                                     outline={false}
                                     onClick={(t) => this.onClickMeClick(t)} >clickme</ButtonElement>
+                                <PasswordElement
+                                    size='25'
+                                    name="Password"
+                                    label='Password'
+                                    onChange={(field, value) => this.updateFormData(field, value)}
+                                    />
+
                                 <Button>Submit</Button>
                             </Form>
                         </Row>

@@ -30,7 +30,7 @@ export default class DateElement extends React.Component {
     render() {
 
         return (
-            <div className="input-group mb-3">
+            <div className="input-group">
                 <span
                     className="input-group-text"
                     id={this.props.name + "_id"}>

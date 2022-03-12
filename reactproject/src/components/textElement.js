@@ -11,7 +11,7 @@ export default class TextElement extends React.Component {
         this.requiredMark = this.props.required && this.props.required === 'true' ? "*" : "";
         this.changedValue = this.changedValue.bind(this);
         this.renderDataList = this.renderDataList.bind(this);
-          
+        this.addLabel = this.addLabel.bind(this);
     }
     loaded = false;
     newlabel = ""; 
@@ -41,25 +41,33 @@ export default class TextElement extends React.Component {
                 </datalist> 
                 ); 
     }
-    render() { 
-        return ( 
-            <div className="input-group mb-3">
+
+    addLabel() {
+        if ("label" in this.props)
+            return (
                 <span
                     className="input-group-text"
-                    id={this.props.name + "_id"}>
+                    id={this.props.name + "_label"}>
                     <span style={{ color: "red" }}>{this.requiredMark}</span>{this.props.label}
                 </span>
+            );
+        return ("");
+    }
+    render() { 
+        return ( 
+            <div className="input-group ">
+                {this.addLabel()}
                 <span data-tip={ this.props.description }>
                     <Input
                         type="text"
                         className="form-control"
                         onChange={this.changedValue}
-                        aria-describedby={this.props.name + "_id"}
+                        aria-describedby={this.props.name + "_label"}
                         required={this.props.required} 
                         value={this.value}
                         list={this.datalistName}
                         id={this.props.name + "_id"}
-                        placeholder={this.props.placeHolder ? this.props.placeholder : ""}
+                        placeholder={this.props.placeholder ? this.props.placeholder : ""}
                     />
                     {this.renderDataList()}
                   </span>  

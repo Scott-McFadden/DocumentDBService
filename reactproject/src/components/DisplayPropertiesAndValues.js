@@ -1,12 +1,7 @@
 import React from 'react';
 
 export default class DisplayPropertiesAndValues extends React.Component {
-
-    constructor(props) {
-        super(props);
-          
-    }
-
+     
     loaded = false;
 
     componentDidMount() {
