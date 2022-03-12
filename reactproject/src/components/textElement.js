@@ -12,6 +12,7 @@ export default class TextElement extends React.Component {
         this.changedValue = this.changedValue.bind(this);
         this.renderDataList = this.renderDataList.bind(this);
         this.addLabel = this.addLabel.bind(this);
+        this.state = { value: "" };
     }
     loaded = false;
     newlabel = ""; 
@@ -22,12 +23,13 @@ export default class TextElement extends React.Component {
 
     componentDidMount() {
         this.loaded = true;
-        this.value = this.props.value;
+        this.setState ({ value: ('value' in this.props) ? this.props.value : ""})  ;
     }
 
     changedValue(e) {
         this.value = e.target.value;
-        this.props.onChange(this.props.name, this.value);
+        this.props.onChange(this.props.name, e.target.value);
+        this.setState({ value: e.target.value })
     }
 
     renderDataList() {
@@ -64,7 +66,7 @@ export default class TextElement extends React.Component {
                         onChange={this.changedValue}
                         aria-describedby={this.props.name + "_label"}
                         required={this.props.required} 
-                        value={this.value}
+                        value={this.state.value}
                         list={this.datalistName}
                         id={this.props.name + "_id"}
                         placeholder={this.props.placeholder ? this.props.placeholder : ""}
