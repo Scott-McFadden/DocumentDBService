@@ -2,11 +2,13 @@ import { Collapse, Nav, NavItem, NavLink, Col, Row, Button, Form, TabContent, Ta
 import React, { Component } from 'react';
 import   classnames   from 'classnames';
 import  NavBar1  from './components/NavBarComponent'; 
-import TextElement from './components/textElement';
+import TextElement from './components/htmlElements/textElement';
 import DisplayPropertiesAndValues from './components/DisplayPropertiesAndValues';
-import DateElement from './components/DateElement';
+import DateElement from './components/htmlElements/DateElement';
 import ButtonElement from './components/htmlElements/buttonElement';
 import PasswordElement from './components/htmlElements/PasswordElement';
+import DisplayQueryDefList from './components/DisplayQueryDefList';
+
 
 export default class App extends Component {
     static displayName = App.name;
@@ -18,7 +20,6 @@ export default class App extends Component {
         this.handleShowPanel = this.handleShowPanel.bind(this);
         this.updateFormData = this.updateFormData.bind(this);
         this.onClickMeClick = this.onClickMeClick.bind(this);
-
 
         this.state = {
             forecasts: [],
@@ -35,7 +36,13 @@ export default class App extends Component {
             },
             formData : {
                 testitem : ""
-            }
+            },
+            currentQueryDef: {
+                id: 'notloaded',
+                name: "loading",
+                description: "loading"
+            },
+
         }; 
         this.resetPanel("getOne");
     };
@@ -118,6 +125,10 @@ export default class App extends Component {
         this.setState({ panel : this.resetPanel(e)})
         console.log(e, this.state.panel[e]);
     }
+    ChangeQueryDef(e) {
+        this.setState({ currentQueryDef : e })
+
+    }
 
     render() {
         let contents = this.state.loading
@@ -165,11 +176,12 @@ export default class App extends Component {
 
                     </NavItem>
                 </Nav>
-                <TabContent activeTab={this.state.activeTab}>
+                <TabContent activeTab={this.state.activeTab} style={{marginLeft:"20px"}}>
                     <TabPane tabId="1">
                         <Row>
                             <Col sm="12">
                                 <h4>Query Def lookup</h4>
+                                <DisplayQueryDefList onQueryDefChange={(e) =>  this.ChangeQueryDef(e)  } />
                             </Col>
                         </Row>
                     </TabPane>
@@ -177,7 +189,7 @@ export default class App extends Component {
                     <TabPane tabId="2">
                         <Row>
                              
-                                <h4>View/Edit Query Def</h4>
+                            <h5>View/Edit Query Definition for {this.state.currentQueryDef.name}</h5>
                             <Form>
                                 <TextElement name='testitem'
                                     placeholder='placeholder test here'
@@ -226,16 +238,19 @@ export default class App extends Component {
                                 <Button>Submit</Button>
                             </Form>
                         </Row>
+                        <Row>
+                            <DisplayPropertiesAndValues data={this.state.formData} />
+                        </Row>
                     </TabPane>
                     <TabPane tabId="3">
                         <Row>
                             <Col sm="12">
-                                <h4>Execute</h4>
+                                <h4>Execute  {this.state.currentQueryDef.name}</h4>
                             </Col>
                         </Row>
                         <Row>
                             <Collapse isOpen={this.state.panel.getOne}>
-                                <DisplayPropertiesAndValues data={this.state.formData} />
+                                
                             </Collapse>
                             <Collapse isOpen={this.state.panel.get}>
                                  getOnePanel

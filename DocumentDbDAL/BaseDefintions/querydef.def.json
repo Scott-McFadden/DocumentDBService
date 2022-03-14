@@ -140,7 +140,7 @@
       "description": "initial Test"
     }
   ],
-  "getQuery": "{ { \"name\", \"${docname}\" }}",
+  "getQuery": "select |fields| from [dbo].[LookUpTable] ",
   "deleteQuery": "",
   "getOneQuery": "",
   "updateQuery": "",

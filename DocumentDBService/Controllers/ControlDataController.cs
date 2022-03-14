@@ -95,5 +95,27 @@ namespace DocumentDBService.Controllers
             }
         }
 
+        /// <summary>
+        /// get querydef 
+        /// </summary>
+        /// <param name="queryDefName">querydef name</param>
+        /// <returns>querydef json object</returns>
+        [HttpGet]
+        [Route("QueryDef/{queryDefName}")]
+        public ActionResult GetQueryDef(string queryDefName)
+        {
+            Log.Information($"GetFields = {queryDefName}");
+            QueryDefModel QueryDef;
+            try
+            {
+                QueryDef = QueryDefService.Get(queryDefName);
+                return Ok(QueryDef );
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error in GetFields");
+                return BadRequest(ex);
+            }
+        }
     }
 }
