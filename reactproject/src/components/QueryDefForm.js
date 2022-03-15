@@ -20,6 +20,7 @@ export default class QueryDefForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fieldContent = this.fieldContent.bind(this);
         this.hasField = this.hasField.bind(this);
+        this.changedValue = this.changedValue.bind(this);
 
         this.state = {
             viewMode: "view",
@@ -30,7 +31,8 @@ export default class QueryDefForm extends React.Component {
         };
     }
     componentDidMount() {
-        console.log("querydefform => ",this.props);
+        if ("showprops" in this.props)
+            console.log("querydefform => ", this.props);
         var fields = this.hasField( this.props.QueryDef, "fields", []);
         this.setState({
             formData: this.props.formData,
@@ -38,6 +40,28 @@ export default class QueryDefForm extends React.Component {
              
             ready: true
         });
+        //    {username: 'Emcfadden', age: '44'}
+        /*     {
+                "name": "Validation",
+                "dbName": "validation",
+                "description": "validation strategy",
+                "dataType": "object",
+                "validation": "none",
+                "validationType": 0,
+                "inputType": "Text"
+                }
+        */
+       
+
+        
+            //for (var b = 0; b < fields.length; a++) {
+            //    for (let x in this.props.formData) {
+
+            //    }
+            //}
+       /* }*/
+
+        }
     }
 
     availableComponents = {
@@ -60,7 +84,11 @@ export default class QueryDefForm extends React.Component {
     loadForm() {
         return true;
     };
-
+    changedValue(e) {
+        let value = e.target.value;
+        this.setState({ f: value });
+        console.log("event": e);
+    }
     handleFormChange() {
         return true;
     };
@@ -78,7 +106,7 @@ export default class QueryDefForm extends React.Component {
 
     components(field) {
 
-        console.log("components => ", field);
+        
         if (field.name === undefined  || field.name==='')
             return (<span />);
         if (field.inputType === "ButtonElement") {
@@ -103,7 +131,7 @@ export default class QueryDefForm extends React.Component {
                     value: this.hasField(this.state.formData, field.name, ""),
 
                     active: false,
-                    onChange: (t) => this.onChange(t)
+                    onChange: (t) => this.changedValue(t)
                 });
             }
             else if (field.inputType === "TextElement" || field.inputType.toLowerCase() === "text") {
@@ -118,7 +146,7 @@ export default class QueryDefForm extends React.Component {
                     list: this.hasField(field, "datalist", null),
                     value:    "", // this.hasField(this.state.formData, field.name, ""),
                     active: false,
-                    onChange: (t) => this.onChange(t)
+                    onChange: (t) => this.changedValue(t)
                 });
             }
             else if (field.inputType === "PasswordElement" || field.inputType.toLowerCase() === "password") {
@@ -132,7 +160,7 @@ export default class QueryDefForm extends React.Component {
                     value: this.hasField(this.state.formData, field.name, ""),
                     showprops: true,
                     active: false,
-                    onChange: (t) => this.onChange(t)
+                    onChange: (t) => this.changedValue(t)
                 });
             }
          
