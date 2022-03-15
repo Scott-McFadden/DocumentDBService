@@ -22,7 +22,7 @@ namespace UnitTests
 
             string f = File.ReadAllText(@"appsettings.json");
               config = JObject.Parse(f);
-            ConnectionString = config.SelectToken($"ConnectionStrings.{Env}").Value<string>().ResolveIP("DocumentDB");
+            ConnectionString = config.SelectToken($"ConnectionStrings.{Env}").Value<string>().ResolveIP("DocumentDb");
             Env = config.SelectToken($"env").Value<string>();
         }
 

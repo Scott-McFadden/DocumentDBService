@@ -32,7 +32,7 @@ namespace UnitTests
             Console.WriteLine(DateTime.Now);
             string f = File.ReadAllText(@"appsettings.json");
             config = JObject.Parse(f);
-            ConnectionString = config.SelectToken("ConnectionStrings.LocalDev").Value<string>().ResolveIP("DocumentDB") ;
+            ConnectionString = config.SelectToken("ConnectionStrings.LocalDev").Value<string>().ResolveIP("DocumentDb") ;
             docDb = new ADOBase<DocumentDBModel>(ConnectionString, "dbo.DocTable");
             lookupdb = new ADOBase<DomainLookUpModel>(ConnectionString, "dbo.LookUpTable");
             connectiondb = new ADOBase<ConnectionModel>(ConnectionString, "dbo.connections");
