@@ -8,7 +8,7 @@ import DateElement from './components/htmlElements/DateElement';
 import ButtonElement from './components/htmlElements/buttonElement';
 import PasswordElement from './components/htmlElements/PasswordElement';
 import DisplayQueryDefList from './components/DisplayQueryDefList';
-
+import QueryDefForm from './components/QueryDefForm';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -34,16 +34,17 @@ export default class App extends Component {
                 update: false,
                 delete: false,
             },
-            formData : {
-                testitem : ""
+            formData: {
+                testitem: ""
             },
             currentQueryDef: {
                 id: 'notloaded',
                 name: "loading",
-                description: "loading"
+                description: "loading",
+                fields:[]
             },
 
-        }; 
+        };
         this.resetPanel("getOne");
     };
 
@@ -121,23 +122,25 @@ export default class App extends Component {
     }
 
     handleShowPanel(e) {
-        
-        this.setState({ panel : this.resetPanel(e)})
+
+        this.setState({ panel: this.resetPanel(e) })
         console.log(e, this.state.panel[e]);
     }
     ChangeQueryDef(e) {
-        this.setState({ currentQueryDef : e })
+        
+        this.setState({ currentQueryDef: e }); 
+          this.populateQueryDef(e.name);
 
     }
 
     render() {
         let contents = this.state.loading
-            ?  <span><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></span>
+            ? <span><em>Loading... </em></span>
             : App.renderForecastsTable(this.state.forecasts);
 
         return (
             <div>
-                
+
                 <NavBar1 onTabChange={this.handleTabChange} onShowPanel={this.handleShowPanel} />
                 <Nav tabs>
                     <NavItem>
@@ -176,67 +179,21 @@ export default class App extends Component {
 
                     </NavItem>
                 </Nav>
-                <TabContent activeTab={this.state.activeTab} style={{marginLeft:"20px"}}>
+                <TabContent activeTab={this.state.activeTab} style={{ marginLeft: "20px" }}>
                     <TabPane tabId="1">
                         <Row>
                             <Col sm="12">
                                 <h4>Query Def lookup</h4>
-                                <DisplayQueryDefList onQueryDefChange={(e) =>  this.ChangeQueryDef(e)  } />
+                                <DisplayQueryDefList onQueryDefChange={(e) => this.ChangeQueryDef(e)} />
                             </Col>
                         </Row>
                     </TabPane>
-                    
+
                     <TabPane tabId="2">
                         <Row>
-                             
-                            <h5>View/Edit Query Definition for {this.state.currentQueryDef.name}</h5>
-                            <Form>
-                                <TextElement name='testitem'
-                                    placeholder='placeholder test here'
-                                    required={true}
-                                    value='oldvalue'
-                                    label='label this'
-                                    datalist={['test', 'quest', 'west']}
-                                    description='hover over me please'
-                                    onChange={(field, value) => this.updateFormData(field, value) }
-                                />
-                                <TextElement name='newItem'
-                                    placeholder='placeholder new items goes here'
-                                    required={false}
-                                    value='new item value'
-                                    label='item number 2'
-                                    description='hover over me please'
-                                    onChange={(field, value) => this.updateFormData(field, value)}
-                                />
-                                <TextElement name='newItem2'
-                                    placeholder='newItem2'
-                                    required={false}
-                                    description='hover over me please'
-                                    onChange={(field, value) => this.updateFormData(field, value)}
-                                />
-                                <DateElement name='DateItem'
-                                    required={false}
-                                    value={new Date().toISOString().slice(0, 10) }
-                                    label='Date item'
-                                    description='hover over me please'
-                                    onChange={(field, value) => this.updateFormData(field, value)}
-                                />
-                                <ButtonElement 
-                                    buttonType='primary'
-                                    description='button hover works'
-                                    disabled={false}
-                                    name="thing1" showprops={true}
-                                    outline={false}
-                                    onClick={(t) => this.onClickMeClick(t)} >clickme</ButtonElement>
-                                <PasswordElement
-                                    size='25'
-                                    name="Password"
-                                    label='Password'
-                                    onChange={(field, value) => this.updateFormData(field, value)}
-                                    />
 
-                                <Button>Submit</Button>
-                            </Form>
+                            <h5>View/Edit Query Definition for {this.state.currentQueryDef.name}</h5>
+                            <QueryDefForm QueryDef={this.state.currentQueryDef} />
                         </Row>
                         <Row>
                             <DisplayPropertiesAndValues data={this.state.formData} />
@@ -250,19 +207,19 @@ export default class App extends Component {
                         </Row>
                         <Row>
                             <Collapse isOpen={this.state.panel.getOne}>
-                                
+
                             </Collapse>
                             <Collapse isOpen={this.state.panel.get}>
-                                 getOnePanel
+                                getOnePanel
                             </Collapse>
                             <Collapse isOpen={this.state.panel.getlimit}>
-                                 getPanelOpen
+                                getPanelOpen
                             </Collapse>
                             <Collapse isOpen={this.state.panel.insert}>
-                                 insertPanelOpen
+                                insertPanelOpen
                             </Collapse>
                             <Collapse isOpen={this.state.panel.update}>
-                                 updatePanelOpen
+                                updatePanelOpen
                             </Collapse>
                             <Collapse isOpen={this.state.panel.delete}>
                                 deletePanelOpen
@@ -275,21 +232,26 @@ export default class App extends Component {
                             <Col sm="6">
                                 <Card body>
                                     <CardTitle>Weather Forcast</CardTitle>
-                                    <CardText>{contents}</CardText>I 
+                                    <CardText>{contents}</CardText>I
                                 </Card>
                             </Col>
                         </Row>
                     </TabPane>
                 </TabContent>
-                
+
 
             </div>
         );
     }
-   
 
-    
 
+
+    async populateQueryDef(name) {
+        console.log("!!!",name);
+        const response = await fetch(`https://localhost:49153/api/ControlData/QueryDef/${name}`, { mode: 'cors' });
+         const data = await response.json();
+        this.setState({ currentQueryDef: data });
+    }
 
     async populateWeatherData() {
       //  const response = await fetch('https://localhost:49163/api/ControlData/ControlData/QueryDef/GetFields', { mode: 'cors' });

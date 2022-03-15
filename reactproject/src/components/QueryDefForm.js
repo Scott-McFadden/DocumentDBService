@@ -1,19 +1,10 @@
 import React from 'react';
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem, Button,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle, DropdownItem, Dropdown,
-    DropdownMenu,
-    Container,
-} from 'reactstrap';
 
-import 'bootstrap/dist/css/bootstrap.css';
+import ButtonElement from './htmlElements/buttonElement';
+import DateElement from './htmlElements/DateElement';
+import PasswordElement from './htmlElements/PasswordElement';
+import TextElement from './htmlElements/textElement';
+
 
 export default class QueryDefForm extends React.Component {
 
@@ -26,22 +17,42 @@ export default class QueryDefForm extends React.Component {
         this.loadForm = this.loadForm.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.resetForm = this.resetForm.bind(this);
-
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.fieldContent = this.fieldContent.bind(this);
+        this.hasField = this.hasField.bind(this);
 
         this.state = {
             viewMode: "view",
-            formData: this.props.formData,
-            origData: this.props.formData,
+            formData: [], 
+            origData: [], 
+            fields: [],
             ready: false 
         };
     }
     componentDidMount() {
-        this.setState({ready: true }) ;
+        console.log("querydefform => ",this.props);
+        var fields = this.hasField( this.props.QueryDef, "fields", []);
+        this.setState({
+            formData: this.props.formData,
+            origData: this.props.formData,
+             
+            ready: true
+        });
     }
+
+    availableComponents = {
+        "ButtonElement": ButtonElement,
+        "DateElement": DateElement,
+        "PasswordElement": PasswordElement,
+        "TextElement": TextElement
+    };
+
     saveForm() {
         return true;
     };
-
+    fieldContent() {
+ 
+    }
     setViewMod(newMode) {
         this.setState({ viewMode: newMode });
     };
@@ -57,24 +68,93 @@ export default class QueryDefForm extends React.Component {
     resetForm() {
         return true;
     };
+    handleSubmit(event) {
+        console.log(event);
+    }
 
-    
+    hasField(obj, field, defaultValue) {
+        return (field in obj) ? obj[field] : defaultValue;
+    }
+
+    components(field) {
+
+        console.log("components => ", field);
+        if (field.name === undefined  || field.name==='')
+            return (<span />);
+        if (field.inputType === "ButtonElement") {
+            return React.createElement(ButtonElement, {
+                description: this.hasField(field, "description", ""),
+                disabled: false,
+                name: this.hasField(field, "name", ""),
+                size: "sm",
+                showprops: true,
+                active: false,
+                onClick: (t) => this.onClick(t)
+            });
+        } else
+            if (field.inputType === "DateElement") {
+                return React.createElement(DateElement, {
+                    description: this.hasField(field, "description", ""),
+                    disabled: false,
+                    name: this.hasField(field, "name", ""),
+                    required: this.hasField(field, "required", false),
+                    label: this.hasField(field, "name", ""),
+                    showprops: true,
+                    value: this.hasField(this.state.formData, field.name, ""),
+
+                    active: false,
+                    onChange: (t) => this.onChange(t)
+                });
+            }
+            else if (field.inputType === "TextElement" || field.inputType.toLowerCase() === "text") {
+                console.log("text");
+                return React.createElement(TextElement, {
+                    description: this.hasField(field, "description", ""),
+                    disabled: false,
+                    name: this.hasField(field, "name", ""),
+                    required: this.hasField(field, "required", false),
+                    label: this.hasField(field, "name", ""),
+                    showprops: true,
+                    list: this.hasField(field, "datalist", null),
+                    value:    "", // this.hasField(this.state.formData, field.name, ""),
+                    active: false,
+                    onChange: (t) => this.onChange(t)
+                });
+            }
+            else if (field.inputType === "PasswordElement" || field.inputType.toLowerCase() === "password") {
+                return React.createElement(PasswordElement, {
+                    description: this.hasField(field, "description", ""),
+                    disabled: false,
+                    label: this.hasField(field, "name", ""),
+                    name: this.hasField(field, "name", ""),
+                    required: this.hasField(field, "required", false),
+                     
+                    value: this.hasField(this.state.formData, field.name, ""),
+                    showprops: true,
+                    active: false,
+                    onChange: (t) => this.onChange(t)
+                });
+            }
+         
+        return (<div>The component ({field.name}) is undefined </div> );
+    }
+
     render() {
-        return (
-            <div id='qDefForm'>
-                <form id='qDefContainer'>
-                    <div id="field_id">
-                        <label id="field_id_label" for="field_id_in">
-                            id:
-                        </label>
-                        <Input id='field_id_in' type='text' value={this.state.formData.id} />
-                    </div>
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
+        console.log("fields", this.props.QueryDef);
+        if ( this.state.ready  && ("fields" in this.props.QueryDef)) 
+            return (
+                <div id='qdefeditor' className="container border">
+                    <p>!!!</p>
+                    <form id='qDefContainer' onSubmit={this.handleSubmit}>
+                        {this.props.QueryDef.fields.map(field => this.components(field))}
+                        <input type='submit' value='Submit' className="btn btn-primary" /><input type='reset' value='Reset' className="btn btn-warning" />
+                    </form>
+                </div>
 
-            
-            
+
+
             );
+        else
+            return (<div>loading</div>);
     }
 }
