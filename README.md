@@ -6,4 +6,7 @@ The queries are defined (QueryDef) by a configuration file stored in the documen
 
 It also included information about the roles associated with the queries, but this has not been implemented yet.  
 
+# running example can be found at www.predefinedquery.com/index.html 
+# swagger page at www.predefinedquery.com/swagger
+
 
