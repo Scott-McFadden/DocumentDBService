@@ -1,8 +1,7 @@
 ﻿insert into [DocumentDb].[dbo].[Connections] ([id], [name], [description], [engineType], [dbName], [connectionString], [collectionName], [uniqueKeys], [tags], [UserId], [Password], [AuthModel]) VALUES 
 ( '53380395-96EF-4E41-AF9F-434586FB993C','LookUpTable','list of domain look up values','MSSQL','DocumentDb','Data Source=IPADDRESS; Initial Catalog=DocumentDb; ','dbo.LookUpTable','id, category, name','lookup','dev','dev','MSSQL'),
 ( '3B4F9E88-88BE-44E6-8652-A62F978C269F','Connections','List of available Connections','MSSQL','DocumentDb','Data Source=IPADDRESS; Initial Catalog=DocumentDb; ','dbo.Connections','id, name','connections','dev','dev','MSSQL'),
-( '756C7086-BD27-4AAC-AE9A-CDA7FF20BB83','DocumentDb','Json Document Storage','MSSQL','DocumentDb','Data Source=*IPADDRESS*; Initial Catalog=DocumentDb; ','dbo.DocTable','id, KeyValue','json docs','dev','dev','MSSQL'),
-( 'AD9EE1A2-A0C8-4E20-BF0D-941551461738','DocumentDb','Json Document Storage','MSSQL','DocumentDb','Data Source=*DOCUMENTDB*; Initial Catalog=DocumentDb; ','dbo.DocTable','id, KeyValue','json docs','dev','dev','MSSQL') 
+( 'AD9EE1A2-A0C8-4E20-BF0D-941551461738','DocumentDb','Json Document Storage','MSSQL','DocumentDb','Data Source=*DocumentDb*; Initial Catalog=DocumentDb; ','dbo.DocTable','id, KeyValue','json docs','dev','dev','MSSQL') 
 
 INSERT INTO  [DocumentDb].[dbo].[LookUpTable] ([id],  [Name],[Category], [Value]) VALUES  
 ( '31D5B97F-CCE5-465C-9374-9A023A13EF5D','DataType','QueryDef','Array'),
