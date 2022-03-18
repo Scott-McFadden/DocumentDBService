@@ -61,7 +61,7 @@ export default class QueryDefForm extends React.Component {
             //}
        /* }*/
 
-        }
+       
     }
 
     availableComponents = {
@@ -74,6 +74,7 @@ export default class QueryDefForm extends React.Component {
     saveForm() {
         return true;
     };
+
     fieldContent() {
  
     }
@@ -87,7 +88,7 @@ export default class QueryDefForm extends React.Component {
     changedValue(e) {
         let value = e.target.value;
         this.setState({ f: value });
-        console.log("event": e);
+        console.log("event", e);
     }
     handleFormChange() {
         return true;

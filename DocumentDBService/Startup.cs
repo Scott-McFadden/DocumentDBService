@@ -76,6 +76,7 @@ namespace DocumentDBService
             });
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
             app.UseCors("allowall" ); 

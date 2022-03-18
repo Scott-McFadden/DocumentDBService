@@ -29,4 +29,8 @@
     <ProjectReference Include="..\DocumentDbDAL\DocumentDbDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\index.html" />
+  </ItemGroup>
+
 </Project>
