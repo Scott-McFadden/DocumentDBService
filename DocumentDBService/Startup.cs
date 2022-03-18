@@ -56,14 +56,15 @@ namespace DocumentDBService
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger( options=>
-                {
-                    options.SerializeAsV2 = true;
-                    
-                }
-                    );
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentDBService v1"));
             }
+            app.UseSwagger( options=>
+            {
+                options.SerializeAsV2 = true;
+                    
+            }
+                );
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentDBService v1"));
+            
             app.UseSerilogRequestLogging(c =>
             {
                 c.MessageTemplate = "Handled {RequestPath}";

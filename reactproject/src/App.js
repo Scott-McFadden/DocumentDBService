@@ -248,7 +248,7 @@ export default class App extends Component {
 
     async populateQueryDef(name) {
         console.log("!!!",name);
-        const response = await fetch(`https://localhost:44301/api/ControlData/QueryDef/${name}`, { mode: 'cors' });
+        const response = await fetch(`/api/ControlData/QueryDef/${name}`, { mode: 'cors' });
          const data = await response.json();
         this.setState({ currentQueryDef: data });
     }
