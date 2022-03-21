@@ -23,7 +23,7 @@ namespace DocumentDBService.Controllers
 
         }
 
-        
+
         [HttpGet]
         [Route("ControlData/{queryDefName}/GetFields")]
         public ActionResult GetFields(string queryDefName)
@@ -68,7 +68,7 @@ namespace DocumentDBService.Controllers
             try
             {
                 lookup = dbServices.lookupdb.Get();
-                return Ok(lookup.DistinctBy(b=> b.Category).Select(c=> c.Category));
+                return Ok(lookup.DistinctBy(b => b.Category).Select(c => c.Category));
             }
             catch (Exception ex)
             {
@@ -109,13 +109,32 @@ namespace DocumentDBService.Controllers
             try
             {
                 QueryDef = QueryDefService.Get(queryDefName);
-                return Ok(QueryDef );
+                return Ok(QueryDef);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Error in GetFields");
                 return BadRequest(ex);
             }
+        }
+
+        [HttpPost]
+        [Route("QueryDef/{queryDefName}")]
+        public ActionResult AddQueryDef(string queryDefName, [FromBody] object body)
+        {
+            Log.Information($"GetFields = {queryDefName}, body = {body.ToString()}");
+            try
+            {
+                QueryDefModel queryDef = QueryDefModel.deserialize(body.ToString() );
+                var x = QueryDefService.Add(queryDef);
+                return Ok(x);
+
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "failed to add querydef");
+                return BadRequest(ex);
+            }
+            
         }
     }
 }

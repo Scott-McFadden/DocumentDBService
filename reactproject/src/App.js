@@ -90,7 +90,6 @@ export default class App extends Component {
         };
         temppanel[e] = true;
         return temppanel;
-
     }
 
     updateFormData(field, value) {
@@ -126,6 +125,7 @@ export default class App extends Component {
         this.setState({ panel: this.resetPanel(e) })
         console.log(e, this.state.panel[e]);
     }
+
     ChangeQueryDef(e) {
         
         this.setState({ currentQueryDef: e }); 
@@ -193,7 +193,7 @@ export default class App extends Component {
                         <Row>
 
                             <h5>View/Edit Query Definition for {this.state.currentQueryDef.name}</h5>
-                            <QueryDefForm QueryDef={this.state.currentQueryDef} />
+                            <QueryDefForm QueryDef={this.state.currentQueryDef} formData={[]} />
                         </Row>
                         <Row>
                             <DisplayPropertiesAndValues data={this.state.formData} />
@@ -247,8 +247,8 @@ export default class App extends Component {
 
 
     async populateQueryDef(name) {
-        console.log("!!!",name);
-        const response = await fetch(`/api/ControlData/QueryDef/${name}`, { mode: 'cors' });
+         
+        const response = await fetch(`https://localhost:44301/api/ControlData/QueryDef/${name}`, { mode: 'cors' });
          const data = await response.json();
         this.setState({ currentQueryDef: data });
     }

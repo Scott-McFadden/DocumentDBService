@@ -76,12 +76,12 @@ export default class DisplayQueryDefList extends Component {
     async populateFields(qdef) {
         if (qdef === undefined)
             return;
-        const response = await fetch(`/api/ControlData/ControlData/${qdef}/GetFields`, { mode: 'cors' });
+        const response = await fetch(`https://localhost:44301/api/ControlData/ControlData/${qdef}/GetFields`, { mode: 'cors' });
         const data = await response.json();
         this.setState({ fieldList: data });
     }
     async populateQueryDefs() {
-        const response = await fetch('/api/QueryDef', { mode: 'cors' });
+        const response = await fetch('https://localhost:44301/api/QueryDef', { mode: 'cors' });
         const data = await response.json();
         var rowstate = [];
         for (var i in data) {

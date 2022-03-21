@@ -14,6 +14,7 @@ export default class TextElement extends React.Component {
         this.addLabel = this.addLabel.bind(this);
         this.state = { value: "" };
     }
+
     loaded = false;
     newlabel = ""; 
     value = "";
@@ -28,7 +29,7 @@ export default class TextElement extends React.Component {
 
     changedValue(e) {
         this.value = e.target.value;
-        this.props.onChange(this.props.name, e.target.value);
+        this.props.onChange({ name: this.props.name, value: e.target.value });
         this.setState({ value: e.target.value })
     }
 

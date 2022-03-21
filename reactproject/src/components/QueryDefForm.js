@@ -13,15 +13,13 @@ export default class QueryDefForm extends React.Component {
         super(props);
 
         this.saveForm = this.saveForm.bind(this);
-        this.setViewMode = this.saveForm.bind(this);
-        this.loadForm = this.loadForm.bind(this);
-        this.handleFormChange = this.handleFormChange.bind(this);
-        this.resetForm = this.resetForm.bind(this);
+        this.applyValues = this.applyValues.bind(this);
+         
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.fieldContent = this.fieldContent.bind(this);
+        
         this.hasField = this.hasField.bind(this);
         this.changedValue = this.changedValue.bind(this);
-
+        
         this.state = {
             viewMode: "view",
             formData: [], 
@@ -30,38 +28,33 @@ export default class QueryDefForm extends React.Component {
             ready: false 
         };
     }
+
     componentDidMount() {
         if ("showprops" in this.props)
             console.log("querydefform => ", this.props);
+
         var fields = this.hasField( this.props.QueryDef, "fields", []);
+                
+        this.applyValues(this.props.formData);
+
         this.setState({
-            formData: this.props.formData,
             origData: this.props.formData,
-             
-            ready: true
+            ready: true,
+            fields: fields
         });
-        //    {username: 'Emcfadden', age: '44'}
-        /*     {
-                "name": "Validation",
-                "dbName": "validation",
-                "description": "validation strategy",
-                "dataType": "object",
-                "validation": "none",
-                "validationType": 0,
-                "inputType": "Text"
-                }
-        */
-       
+    }
 
-        
-            //for (var b = 0; b < fields.length; a++) {
-            //    for (let x in this.props.formData) {
+    applyValues(formData) {
+        if (this.state === undefined)
+            return;
 
-            //    }
-            //}
-       /* }*/
+        let fields = this.state.fields;
+        for (var a = 0; a < fields.length; a++) {
 
-       
+            if (formData[fields[a].name] !== undefined)
+                fields[a]["value"] = formData[fields[a].name];
+        }
+        this.setState({ fields: fields });
     }
 
     availableComponents = {
@@ -75,28 +68,22 @@ export default class QueryDefForm extends React.Component {
         return true;
     };
 
-    fieldContent() {
- 
-    }
     setViewMod(newMode) {
         this.setState({ viewMode: newMode });
-    };
+    }; 
 
-    loadForm() {
-        return true;
-    };
     changedValue(e) {
         let value = e.target.value;
         this.setState({ f: value });
         console.log("event", e);
     }
+
     handleFormChange() {
         return true;
     };
 
-    resetForm() {
-        return true;
-    };
+     
+
     handleSubmit(event) {
         console.log(event);
     }
@@ -106,7 +93,6 @@ export default class QueryDefForm extends React.Component {
     }
 
     components(field) {
-
         
         if (field.name === undefined  || field.name==='')
             return (<span />);
@@ -129,8 +115,7 @@ export default class QueryDefForm extends React.Component {
                     required: this.hasField(field, "required", false),
                     label: this.hasField(field, "name", ""),
                     showprops: true,
-                    value: this.hasField(this.state.formData, field.name, ""),
-
+                    value: this.hasField(  field, ""),
                     active: false,
                     onChange: (t) => this.changedValue(t)
                 });
@@ -145,7 +130,7 @@ export default class QueryDefForm extends React.Component {
                     label: this.hasField(field, "name", ""),
                     showprops: true,
                     list: this.hasField(field, "datalist", null),
-                    value:    "", // this.hasField(this.state.formData, field.name, ""),
+                    value: this.hasField(field, ""),
                     active: false,
                     onChange: (t) => this.changedValue(t)
                 });
@@ -157,8 +142,7 @@ export default class QueryDefForm extends React.Component {
                     label: this.hasField(field, "name", ""),
                     name: this.hasField(field, "name", ""),
                     required: this.hasField(field, "required", false),
-                     
-                    value: this.hasField(this.state.formData, field.name, ""),
+                    value: this.hasField(field, ""),
                     showprops: true,
                     active: false,
                     onChange: (t) => this.changedValue(t)
@@ -176,7 +160,8 @@ export default class QueryDefForm extends React.Component {
                     <p>!!!</p>
                     <form id='qDefContainer' onSubmit={this.handleSubmit}>
                         {this.props.QueryDef.fields.map(field => this.components(field))}
-                        <input type='submit' value='Submit' className="btn btn-primary" /><input type='reset' value='Reset' className="btn btn-warning" />
+                        <input type='submit' value='Submit' className="btn btn-primary" />
+                        <input type='reset' value='Reset' className="btn btn-warning" />
                     </form>
                 </div>
 

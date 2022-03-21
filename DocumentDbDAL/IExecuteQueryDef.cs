@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace DocumentDbDAL
 {
+
+    /// <summary>
+    /// base class for execute query defintion.   
+    /// 
+    /// Will be used to create new Execute Query Definition Base 
+    /// </summary>
     public abstract class ExecuteQueryDefBase : IExecuteQueryDef
     {
         protected ConnectionModel connectionModel;
@@ -17,6 +23,10 @@ namespace DocumentDbDAL
 
 
         protected string queryDefName = "";
+        
+        /// <summary>
+        /// QueryDefName - sets the querydef for the class. Loads QueryDefModel and ConnectionModel
+        /// </summary>
         public string QueryDefName
         {
             get { return queryDefName; }

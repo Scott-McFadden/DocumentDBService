@@ -8,10 +8,14 @@ namespace DocumentDbDAL
 {
     public class ExecuteQueryDef : ExecuteQueryDefBase, IExecuteQueryDef
     {
-        
         private SqlConnection conn; 
 
-        
+        /// <summary>
+        /// Gets a single record based on the querydef
+        /// </summary>
+        /// <param name="id">pk of record in the target table</param>
+        /// <returns>jobject containing the requested query</returns>
+        /// <exception cref="Exception"></exception>
         public override JObject GetOne(string id)
         {
             if (!queryDefModel.canGet)
@@ -77,7 +81,16 @@ namespace DocumentDbDAL
             return ret;
         }
 
-        public  override JArray GetLimit(string criteria = "", int page=0, int pageSize=0)
+        /// <summary>
+        /// GetLimit  - gets all records in the selected range query - unless a reducing criteria is specified.  
+        /// the sql when criteria ie.  category = 'this' and name='that' 
+        /// </summary>
+        /// <param name="criteria">selection criteria</param>
+        /// <param name="page">page number (n-1*pagesize rows)</param>
+        /// <param name="pageSize">pagesize </param>
+        /// <returns>records for the selected window</returns>
+        /// <exception cref="Exception">error information</exception>
+        public override JArray GetLimit(string criteria = "", int page=0, int pageSize=0)
         {
             if (!queryDefModel.canGet)
                 throw new Exception("Current QueryDef does not allow Get Operations");
@@ -116,6 +129,12 @@ namespace DocumentDbDAL
             return ret;
         }
 
+        /// <summary>
+        /// Removed a row associated with an ID
+        /// </summary>
+        /// <param name="id">pk id for the record to be removed</param>
+        /// <returns>1 if successful</returns>
+        /// <exception cref="Exception"></exception>
         public override int Delete(string id)
         {
             if (!queryDefModel.canDelete)
@@ -135,6 +154,12 @@ namespace DocumentDbDAL
             return ret;
         }
 
+        /// <summary>
+        /// updates a row based on the querydef specification
+        /// </summary>
+        /// <param name="model">expected changes represented in a model</param>
+        /// <returns>1 if updated</returns>
+        /// <exception cref="Exception">errors</exception>
         public override int Update(JObject model)
         {
             if (!queryDefModel.canUpdate)
@@ -155,6 +180,12 @@ namespace DocumentDbDAL
             return ret;
         }
 
+        /// <summary>
+        /// adds a row based on the querydef specification
+        /// </summary>
+        /// <param name="model">model to add</param>
+        /// <returns>1 if successful</returns>
+        /// <exception cref="Exception">errors</exception>
         public override int Insert(JObject model)
         {
             if (!queryDefModel.canAdd)
@@ -188,12 +219,12 @@ namespace DocumentDbDAL
             return ret;
         }
 
+        // -----------------------------------------------------------------------------------------------------------------------
 
         /*
          *   UTILITY METHODS
          *   
          */
-        
 
         protected string UpdateFieldString(JObject model)
         {
@@ -211,7 +242,6 @@ namespace DocumentDbDAL
 
             return s.ToString();
         }
-
         protected  string InsertValuesList(JObject model)
         {
             StringBuilder s = new();
@@ -238,7 +268,6 @@ namespace DocumentDbDAL
 
             return s.ToString();
         }
-
         protected string SelectedFieldsList()
         {
             StringBuilder s = new();
@@ -271,7 +300,6 @@ namespace DocumentDbDAL
             return (prefix.IsEmpty() ? "" : prefix) + "[" + vname + "]";  
         }
 
-
         /// <summary>
         /// builds correct connection string based on the connectionModel definition
         /// </summary>
@@ -299,9 +327,7 @@ namespace DocumentDbDAL
 
             ret = ret.Replace("databaseName", connectionModel.dbName);
 
-
             return ret;
-
         }
 
         /// <summary>

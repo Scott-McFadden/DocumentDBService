@@ -1,0 +1,96 @@
+{
+  "id": "91a938da-9ba1-414a-bdb4-d0095e384d14",
+  "name": "foreignkeyrefs",
+  "description": "This will provide a list of all the tables referenced by this tables foreign keys",
+  "version": "1.0",
+  "connection": "DocumentDb",
+  "tags": [
+    "MSSQL",
+    "Schema"
+  ],
+  "orderby": "name asc",
+  "fields": [
+    {
+      "name": "",
+      "dbName": "",
+      "description": "",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "",
+      "Children": null
+    },
+    {
+      "name": "Name",
+      "dbName": "name",
+      "description": "name of foriegn key",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text",
+      "Children": null
+    },
+    {
+      "name": "Parent Table",
+      "dbName": "parent",
+      "description": "name of parent table",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text",
+      "Children": null
+    },
+    {
+      "name": "Reference Table",
+      "dbName": "references",
+      "description": "name of reference table",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text",
+      "Children": null
+    },
+    {
+      "name": "Parent Id",
+      "dbName": "parent_object_id",
+      "description": "pk of Parent Object",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text",
+      "Children": null
+    },
+    {
+      "name": "Reference Id",
+      "dbName": "referenced_object_id",
+      "description": "pk of reference Object",
+      "dataType": "",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text",
+      "Children": null
+    }
+  ],
+  "Modifications": [
+    {
+      "dateModified": "2022-03-18T18:01:38.5788302-05:00",
+      "who": "",
+      "jiraTicket": "",
+      "description": ""
+    },
+    {
+      "dateModified": "2022-03-18T00:00:00",
+      "who": "scott",
+      "jiraTicket": "",
+      "description": "initial load"
+    }
+  ],
+  "getQuery": "select name, object_name(parent_object_id) as \"parent\",parent_object_id,  object_name(referenced_object_id) as \"references\",referenced_object_id from sys.foreign_keys",
+  "getOneQuery": "select name, object_name(parent_object_id) as \"parent\",parent_object_id,  object_name(referenced_object_id) as \"references\",referenced_object_id from sys.foreign_keys where parent_object_id=Object_id(@id)",
+  "deleteQuery": "",
+  "updateQuery": "",
+  "addQuery": "",
+  "roles": [
+    "anyone"
+  ]
+}

@@ -1,9 +1,6 @@
 ﻿using DocumentDbDAL.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentDbDAL
 {
@@ -35,6 +32,7 @@ namespace DocumentDbDAL
                 cache.Add(q.name, q);
             }
         }
+
         /// <summary>
         /// check to make sure that the given name is not in the cache 
         /// </summary>
@@ -62,6 +60,14 @@ namespace DocumentDbDAL
                     return false;
 
                 cache.Add(model.name, model);
+
+                DocumentDBModel dbmodel = new();
+                dbmodel.id = model.id;
+                dbmodel.KeyValue = model.name;
+                dbmodel.JsonDoc = model.serialize();
+                dbmodel.category = "QueryDef";
+
+                var ans = DB.Add(dbmodel);
                 ret = true;
             } catch (Exception ex)
             {
