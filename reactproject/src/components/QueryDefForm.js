@@ -64,8 +64,16 @@ export default class QueryDefForm extends React.Component {
         "TextElement": TextElement
     };
 
-    saveForm() {
-        return true;
+    saveForm(e) {
+        console.log("submit", e);
+        var formdata = {}
+        for (var a = 0; a < e.target.length; a++) {
+            if (e.target[a].name !== '')
+                formdata[e.target[a].name] = e.target[a].value;
+
+        }
+        this.props.onSubmit(formdata);
+        e.preventDefault();
     };
 
     setViewMod(newMode) {
@@ -73,8 +81,8 @@ export default class QueryDefForm extends React.Component {
     }; 
 
     changedValue(e) {
-        let value = e.target.value;
-        this.setState({ f: value });
+        
+        this.setState({ [e.name]: e.value });
         console.log("event", e);
     }
 
@@ -156,11 +164,11 @@ export default class QueryDefForm extends React.Component {
         console.log("fields", this.props.QueryDef);
         if ( this.state.ready  && ("fields" in this.props.QueryDef)) 
             return (
-                <div id='qdefeditor' className="container border">
+                <div id='qdefeditor' className="container border"  >
                     <p>!!!</p>
-                    <form id='qDefContainer' onSubmit={this.handleSubmit}>
+                    <form id='qDefContainer' onSubmit={(e) => { this.saveForm(e); e.preventDefault()}} >
                         {this.props.QueryDef.fields.map(field => this.components(field))}
-                        <input type='submit' value='Submit' className="btn btn-primary" />
+                        <input type='submit' value='Submit' className="btn btn-primary"   />
                         <input type='reset' value='Reset' className="btn btn-warning" />
                     </form>
                 </div>

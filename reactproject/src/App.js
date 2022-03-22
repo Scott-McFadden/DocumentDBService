@@ -20,6 +20,7 @@ export default class App extends Component {
         this.handleShowPanel = this.handleShowPanel.bind(this);
         this.updateFormData = this.updateFormData.bind(this);
         this.onClickMeClick = this.onClickMeClick.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
 
         this.state = {
             forecasts: [],
@@ -41,7 +42,7 @@ export default class App extends Component {
                 id: 'notloaded',
                 name: "loading",
                 description: "loading",
-                fields:[]
+                fields: []
             },
 
         };
@@ -127,10 +128,13 @@ export default class App extends Component {
     }
 
     ChangeQueryDef(e) {
-        
-        this.setState({ currentQueryDef: e }); 
-          this.populateQueryDef(e.name);
 
+        this.setState({ currentQueryDef: e });
+        this.populateQueryDef(e.name);
+
+    }
+    onFormSubmit(data) {
+        this.setState({ formData: data });
     }
 
     render() {
@@ -193,7 +197,7 @@ export default class App extends Component {
                         <Row>
 
                             <h5>View/Edit Query Definition for {this.state.currentQueryDef.name}</h5>
-                            <QueryDefForm QueryDef={this.state.currentQueryDef} formData={[]} />
+                            <QueryDefForm QueryDef={this.state.currentQueryDef} formData={this.state.formData} onSubmit={this.onFormSubmit} />
                         </Row>
                         <Row>
                             <DisplayPropertiesAndValues data={this.state.formData} />

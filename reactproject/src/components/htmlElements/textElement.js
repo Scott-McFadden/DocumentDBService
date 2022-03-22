@@ -70,6 +70,7 @@ export default class TextElement extends React.Component {
                         value={this.state.value}
                         list={this.datalistName}
                         id={this.props.name + "_id"}
+                        name={this.props.name}
                         placeholder={this.props.placeholder ? this.props.placeholder : ""}
                     />
                     {this.renderDataList()}
