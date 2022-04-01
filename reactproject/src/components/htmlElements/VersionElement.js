@@ -68,6 +68,15 @@ export default class VersionElement extends React.Component {
 
     
     render() {
+/*
+ * Fun Fact:   apparently the input form will only include entries for input elements with the 
+ *             name property.   In this case there are 3 input fields for each of the version spots.
+ *             There is also a hidden input field.  The first three collect the individual parts but are 
+ *             not reported to the submit because each of the input controls do not contain a name field. 
+ *             The hidden field's value is calculated so when the submit occurs, it reports the composite 
+ *             value of the previous three fields.  
+ * 
+ * */
         return (
             <div className="input-group ">
                 {this.addLabel()}
