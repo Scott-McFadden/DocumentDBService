@@ -67,6 +67,7 @@ export default class ButtonElement extends React.Component {
                             active={this.state.active}
                             outline={this.state.outline}
                             disabled={this.state.disabled}
+                            name={this.props.name}
                         >{this.props.children}</Button> 
                       </span>  
                 </div> 

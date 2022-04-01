@@ -8,9 +8,13 @@ export default class DateElement extends React.Component {
     constructor(props) {
         super(props);
 
+        if ('showprops' in this.props)
+            console.log("DateElement", this.props);
+
         this.requiredMark = this.props.required && this.props.required === 'true' ? "*" : "";
         this.changedValue = this.changedValue.bind(this);
-
+        this.addLabel = this.addLabel.bind(this);
+        this.state = { value: "" };
     }
     loaded = false;
     newlabel = "";
@@ -19,32 +23,41 @@ export default class DateElement extends React.Component {
 
     componentDidMount() {
         this.loaded = true;
-        this.value = this.props.value;
+        this.setState({ value: ('value' in this.props) ? this.props.value : "" });
     }
 
     changedValue(e) {
         this.value = e.target.value;
-        this.props.onChange(this.props.name, this.value);
+        this.props.onChange({ name: this.props.name, value: e.target.value });
+        this.setState({ value: e.target.value })
     }
 
-    render() {
-
-        return (
-            <div className="input-group">
+    addLabel() {
+        if ("label" in this.props)
+            return (
                 <span
                     className="input-group-text"
-                    id={this.props.name + "_id"}>
+                    id={this.props.name + "_label"}>
                     <span style={{ color: "red" }}>{this.requiredMark}</span>{this.props.label}
                 </span>
+            );
+        return ("");
+    }
+
+    render() { 
+        return (
+            <div className="input-group">
+                {this.addLabel()}
                 <span data-tip={this.props.description}>
                     <Input
                         type="date"
                         className="form-control"
                         onChange={this.changedValue}
                         aria-describedby={this.props.name + "_id"}
-
-                        value={this.value}
+                        required={this.props.required}
+                        value={this.state.value} 
                         id={this.props.name + "_id"}
+                        name={this.props.name}
                         placeholder={this.props.placeHolder ? this.props.placeholder : ""}
                     />
                 </span>

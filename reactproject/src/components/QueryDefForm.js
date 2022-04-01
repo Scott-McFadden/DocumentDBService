@@ -4,7 +4,7 @@ import ButtonElement from './htmlElements/buttonElement';
 import DateElement from './htmlElements/DateElement';
 import PasswordElement from './htmlElements/PasswordElement';
 import TextElement from './htmlElements/textElement';
-
+import VersionElement from './htmlElements/VersionElement';
 
 export default class QueryDefForm extends React.Component {
 
@@ -83,6 +83,7 @@ export default class QueryDefForm extends React.Component {
     changedValue(e) {
         
         this.setState({ [e.name]: e.value });
+        console.log("state", this.state);
         console.log("event", e);
     }
 
@@ -138,6 +139,21 @@ export default class QueryDefForm extends React.Component {
                     label: this.hasField(field, "name", ""),
                     showprops: true,
                     list: this.hasField(field, "datalist", null),
+                    value: this.hasField(field, ""),
+                    active: false,
+                    onChange: (t) => this.changedValue(t)
+                });
+            }
+            else if (field.inputType === "VersionElement" || field.inputType.toLowerCase() === "versiontext") {
+                console.log("version");
+                return React.createElement(VersionElement, {
+                    description: this.hasField(field, "description", ""),
+                    disabled: false,
+                    name: this.hasField(field, "name", ""),
+                    required: this.hasField(field, "required", false),
+                    label: this.hasField(field, "name", ""),
+                    showprops: true,
+                     
                     value: this.hasField(field, ""),
                     active: false,
                     onChange: (t) => this.changedValue(t)

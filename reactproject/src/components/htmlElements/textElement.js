@@ -7,7 +7,9 @@ export default class TextElement extends React.Component {
 
     constructor(props) {
         super(props);
-        
+        if ('showprops' in this.props)
+            console.log("buttonelement", this.props);
+
         this.requiredMark = this.props.required && this.props.required === 'true' ? "*" : "";
         this.changedValue = this.changedValue.bind(this);
         this.renderDataList = this.renderDataList.bind(this);

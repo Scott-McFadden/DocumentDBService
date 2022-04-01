@@ -2,11 +2,8 @@ import { Collapse, Nav, NavItem, NavLink, Col, Row, Button, Form, TabContent, Ta
 import React, { Component } from 'react';
 import   classnames   from 'classnames';
 import  NavBar1  from './components/NavBarComponent'; 
-import TextElement from './components/htmlElements/textElement';
 import DisplayPropertiesAndValues from './components/DisplayPropertiesAndValues';
-import DateElement from './components/htmlElements/DateElement';
-import ButtonElement from './components/htmlElements/buttonElement';
-import PasswordElement from './components/htmlElements/PasswordElement';
+
 import DisplayQueryDefList from './components/DisplayQueryDefList';
 import QueryDefForm from './components/QueryDefForm';
 
@@ -21,7 +18,7 @@ export default class App extends Component {
         this.updateFormData = this.updateFormData.bind(this);
         this.onClickMeClick = this.onClickMeClick.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
-
+         
         this.state = {
             forecasts: [],
             loading: true,

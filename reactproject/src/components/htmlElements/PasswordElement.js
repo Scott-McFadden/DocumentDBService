@@ -25,6 +25,10 @@ export default class PasswordElement extends React.Component {
       
     constructor(props) {
         super(props);
+
+        if ('showprops' in this.props)
+            console.log("PasswordElement", this.props);
+
         library.add(fas, faEye, faEyeSlash);
 
         if ('showprops' in this.props)
@@ -45,23 +49,33 @@ export default class PasswordElement extends React.Component {
             type: "password",
             eyeIcon: "faEyeSlash"
         }
+
+        this.addLabel = this.addLabel.bind(this);
         this.changedValue = this.changedValue.bind(this);
         this.toggleType = this.toggleType.bind(this);
         this.eyeIcon = this.eyeIcon.bind(this);
     }
     
     loaded = false;
-    active = false; 
+    active = false;
+    faStyle = {
+        top: '2px',
+        'fontSize': '1.5em',
+        position: 'absolute',
+        cursor: 'pointer'
+    }
      
     componentDidMount() {
         this.loaded = true;
-        this.value = ("value" in this.props) ? this.props.value : "";
+        this.setState({ value: ('value' in this.props) ? this.props.value : "" });
     }
 
     changedValue(e) {
         this.value = e.target.value;
-        this.props.onChange(this.props.name, this.value);
+        this.props.onChange({ name: this.props.name, value: e.target.value });
+        this.setState({ value: e.target.value })
     }
+
     toggleType()   {
         if (this.state.type === 'password')
             this.setState({
@@ -74,29 +88,31 @@ export default class PasswordElement extends React.Component {
                 type: "password"
             });
     }
-      faStyle = {
-         
-        top: '2px',
-        'fontSize': '1.5em',
-        position: 'absolute',
-        cursor: 'pointer'
 
-    }
     eyeIcon() {
         if (this.state.eyeIcon === "faEye")
             return (<FontAwesomeIcon icon="eye" border style={this.faStyle} />);
          
         return (<FontAwesomeIcon icon="eye-slash" border style={this.faStyle} />);
     }
+
+    addLabel() {
+        if ("label" in this.props)
+            return (
+                <span
+                    className="input-group-text"
+                    id={this.props.name + "_label"}>
+                    <span style={{ color: "red" }}>{this.requiredMark}</span>{this.props.label}
+                </span>
+            );
+        return ("");
+    }
+
     render() {
         if(this.loaded)
             return ( 
                 <div className="input-group ">
-                    <span
-                        className="input-group-text"
-                        id={this.props.name + "_id"}>
-                        <span style={{ color: "red" }}>{this.requiredMark}</span>{this.props.label}
-                    </span>
+                    {this.addLabel()}
                     <span data-tip={ this.props.description } >
                         <Input
                             type={this.state.type}
@@ -105,13 +121,14 @@ export default class PasswordElement extends React.Component {
                             onChange={this.changedValue}
                             aria-describedby={this.props.name + "_id"}
                             required={this.props.required}
-                            value={this.value} 
+                            value={this.state.value}
                             disabled={this.state.disabled}
                             id={this.props.name + "_id"}
+                            name={this.props.name}
                         />
                              
                     </span>  <span onClick={this.toggleType}  >{this.eyeIcon()}</span>
-                    <i className="fa fa-eye" />
+                    
                 </div> 
                 );
         else
