@@ -5,9 +5,10 @@ import DateElement from './htmlElements/DateElement';
 import PasswordElement from './htmlElements/PasswordElement';
 import TextElement from './htmlElements/textElement';
 import VersionElement from './htmlElements/VersionElement';
+import VersionElement from './htmlElements/TextAreaElement';
+import VersionElement from './htmlElements/JSONEditorElement';
 
 export default class QueryDefForm extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -90,9 +91,7 @@ export default class QueryDefForm extends React.Component {
     handleFormChange() {
         return true;
     };
-
-     
-
+     Here s
     handleSubmit(event) {
         console.log(event);
     }
@@ -141,6 +140,33 @@ export default class QueryDefForm extends React.Component {
                     list: this.hasField(field, "datalist", null),
                     value: this.hasField(field, ""),
                     active: false,
+                    onChange: (t) => this.changedValue(t)
+                });
+            }
+            else if (field.inputType === "TextAreaElement" || field.inputType.toLowerCase() === "textarea") {
+                console.log("TextArea");
+                return React.createElement(TextAreaElement, {
+                    description: this.hasField(field, "description", ""),
+                    disabled: false,
+                    name: this.hasField(field, "name", ""),
+                    required: this.hasField(field, "required", false),
+                    label: this.hasField(field, "name", ""),
+                    showprops: true, 
+                    value: this.hasField(field, ""),
+                    active: false,
+                    onChange: (t) => this.changedValue(t)
+                });
+            }
+            else if (field.inputType === "JSONEditorElement" || field.inputType.toLowerCase() === "jsoneditor") {
+                console.log("JsonEditor");
+                return React.createElement(JSONEditorElement, {
+                    description: this.hasField(field, "description", ""),
+                    disabled: false,
+                    name: this.hasField(field, "name", ""),
+                    required: this.hasField(field, "required", false),
+                    label: this.hasField(field, "name", ""),
+                    showprops: true,
+                    value: this.hasField(field, ""),
                     onChange: (t) => this.changedValue(t)
                 });
             }

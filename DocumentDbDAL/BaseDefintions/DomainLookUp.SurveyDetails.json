@@ -1,0 +1,63 @@
+{
+  "title": "Domain LookUp Record",
+  "description": "Test form for Survey JS",
+  "logoPosition": "right",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "question2",
+          "title": "Id",
+          "description": "The key id for the row",
+          "valueName": "id",
+          "defaultValue": "@@DomainLookUp.id"
+        },
+        {
+          "type": "text",
+          "name": "question1",
+          "title": "Query Definition",
+          "description": "Name of the query defintion that will be used to retrieve the data",
+          "valueName": "QueryDef",
+          "defaultValue": "@@DomainLookUp.QueryDef"
+        },
+        {
+          "type": "text",
+          "name": "question3",
+          "title": "Category",
+          "description": "The category of the Look Up Item",
+          "valueName": "Category",
+          "defaultValue": "@@DomainLookUp.Category"
+        },
+        {
+          "type": "text",
+          "name": "question4",
+          "title": "Value",
+          "valueName": "Value",
+          "defaultValue": "@@DomainLookUp.Value"
+        },
+        {
+          "type": "boolean",
+          "name": "question5",
+          "title": "Will you use this field",
+          "valueName": "UseThisField"
+        },
+        {
+          "type": "text",
+          "name": "question6",
+          "title": "This is constant 1",
+          "valueName": "Constant1",
+          "defaultValue": "@@Constants.Constant1"
+        },
+        {
+          "type": "rating",
+          "name": "question7",
+          "title": "This is constant 2",
+          "valueName": "Constant2",
+          "defaultValue": "@@Constants.Constant2"
+        }
+      ]
+    }
+  ]
+}
