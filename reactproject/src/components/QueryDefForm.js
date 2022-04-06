@@ -91,7 +91,7 @@ export default class QueryDefForm extends React.Component {
     handleFormChange() {
         return true;
     };
-     Here s
+      
     handleSubmit(event) {
         console.log(event);
     }
@@ -167,6 +167,7 @@ export default class QueryDefForm extends React.Component {
                     label: this.hasField(field, "name", ""),
                     showprops: true,
                     value: this.hasField(field, ""),
+                    active: false,
                     onChange: (t) => this.changedValue(t)
                 });
             }
