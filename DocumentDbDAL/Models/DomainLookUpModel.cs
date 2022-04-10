@@ -11,6 +11,11 @@ namespace DocumentDbDAL.Models
         public string Name { get; set; } 
         public string Value { get; set; }
 
+        public string Key ()
+        {
+            return Category + "_" + Name + "_" + Value;
+
+        }
         public string GetInsertValues()
         {
             return $" '{id}', '{Category}',  '{Name}', '{Value}' ";

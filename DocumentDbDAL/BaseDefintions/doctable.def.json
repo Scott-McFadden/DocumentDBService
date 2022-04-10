@@ -1,0 +1,97 @@
+{
+  "id": "3C3B67D2-069C-49DE-8B68-B8D583C62339",
+  "name": "DocTable",
+  "description": "Works against the DocTable",
+  "version": "1.0",
+  "connection": "DocumentDb",
+  "tags": [
+    "doctable",
+    "json",
+    "admin"
+  ],
+  "orderby": " category asc, KeyValue  asc",
+  "fields": [
+    {
+      "name": "id",
+      "dbName": "id",
+      "description": "Key Id",
+      "dataType": "string",
+      "validation": "",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "category",
+      "dbName": "category",
+      "description": "category of the document",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "KeyValue",
+      "dbName": "KeyValue",
+      "description": "Identifies the key categoriess",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "JsonDoc",
+      "dbName": "JsonDoc",
+      "description": "Json Document to be stored",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      [ "DateCreated" ],
+      [ "DateLastChanged" ],
+      "inputType": "jsoneditor"
+    },
+    {
+      "name": "Owner",
+      "dbName": "Owner",
+      "description": "content owner",
+      "dataType": "string",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "text"
+    },
+    {
+      "name": "DateCreated",
+      "dbName": "DateCreated",
+      "description": "Date the document was created",
+      "dataType": "date",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "date"
+    },
+    {
+      "name": "DateLastChanged",
+      "dbName": "DateLastChanged",
+      "description": "When the document was last updated",
+      "dataType": "data",
+      "validation": "none",
+      "validationType": 0,
+      "inputType": "date"
+    }
+
+  ],
+  "Modifications": [
+    {
+      "dateModified": "2022-01-18T14:59:18.0610963-06:00",
+      "who": "scott",
+      "jiraTicket": "",
+      "description": "initial Test"
+    }
+  ],
+  "getQuery": "select |fields| from [dbo].[DocTable] ",
+  "deleteQuery": "delete from [dbo].[DocTable] where id = @id",
+  "getOneQuery": "select |fields| from [dbo].[DocTable] where id = @id",
+  "updateQuery": "update [dbo].[DocTable] set |updateFields| where id=@id ",
+  "addQuery": "insert into [dbo].[DocTable] ( |fields| ) values ( |values| )",
+  "roles": [
+    "anyone"
+  ]
+}

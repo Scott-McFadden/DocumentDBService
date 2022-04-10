@@ -136,5 +136,29 @@ namespace DocumentDBService.Controllers
             }
             
         }
+        /// <summary>
+        /// Reloads the cached tables
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <returns>reloadme</returns>
+        [HttpGet]
+        [Route("QueryDef/Reload/{pwd}")]
+        public    ActionResult  ReloadAsync(string pwd)
+        {
+            Log.Information($"Reload = {pwd} ");
+
+            if (pwd == "reloadme") 
+            try
+            {
+                  dbServices.Reload();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "failed to add querydef");
+                return BadRequest(ex);
+            }
+            return Ok();
+        }
     }
 }

@@ -89,6 +89,7 @@ namespace DocumentDbDAL
 
             using (conn = GetConnection())
             {
+
                 cmd = new SqlCommand(queryString, conn); 
                 rdr = cmd.ExecuteReader();
 

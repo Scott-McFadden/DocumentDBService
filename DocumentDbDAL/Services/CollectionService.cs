@@ -26,7 +26,8 @@ namespace DocumentDbDAL
         {
             DB = db;
             PersistChanges = true;
-            LoadFromDB();
+            
+             LoadFromDB( );
             
         }
         /// <summary>
@@ -36,20 +37,22 @@ namespace DocumentDbDAL
         {
             if (DB == null)
                 return;
-            LoadFromDB();
+              LoadFromDB();
         }
         private static void LoadFromDB()
         {
-            List <ConnectionModel> rawDocs = DB.Get();
+             
+            List<ConnectionModel> rawDocs = DB.Get();
             cache = new();
             string IpAddress = Utils.GetIPAddress();
 
-            foreach(var d in rawDocs)
+            foreach (var d in rawDocs)
             {
                 d.connectionString = d.connectionString.ResolveIP("IPADDRESS").ResolveIP(d.name);
-                
+
                 cache.Add(d.name, d);
             }
+             
         }
         /// <summary>
         /// add a model to the cache

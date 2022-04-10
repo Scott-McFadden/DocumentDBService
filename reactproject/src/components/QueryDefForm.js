@@ -115,7 +115,7 @@ export default class QueryDefForm extends React.Component {
                 onClick: (t) => this.onClick(t)
             });
         } else
-            if (field.inputType === "DateElement") {
+            if (field.inputType === "DateElement" || field.inputType.toLowerCase() === "date") {
                 return React.createElement(DateElement, {
                     description: this.hasField(field, "description", ""),
                     disabled: false,

@@ -1,5 +1,6 @@
 ﻿using DocumentDbDAL;
 using DocumentDbDAL.Models;
+using System.Threading.Tasks;
 
 namespace DocumentDBService
 {
@@ -9,6 +10,6 @@ namespace DocumentDBService
         ADOBase<DocumentDBModel> docDb { get; set; }
         ADOBase<DomainLookUpModel> lookupdb { get; set; }
 
-       
+        void Reload();
     }
 }

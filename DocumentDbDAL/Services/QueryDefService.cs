@@ -23,7 +23,8 @@ namespace DocumentDbDAL
         {
             DB = db;
             PersistChanges = true;
-
+            cache = new();
+            
             List < DocumentDBModel > rawDocs = DB.Get(" where Category='QueryDef'");
 
             foreach(var d in rawDocs)
